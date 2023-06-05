@@ -1,0 +1,41 @@
+
+<div class="page-home">
+  <div class="main-content">
+    <div class="menu-navigation">
+      <div class="title">
+        <h1>Emisora</h1>
+      </div>
+      <div class="user-actions">
+        <p>{{currentUser.first_name}} {{currentUser.last_name}}</p>
+        <mat-icon class="icon-exit" (click)="exitUser()">exit_to_app</mat-icon>
+      </div>
+    </div>
+
+    <div *ngIf="nextSong.url" class="widget-music">
+      <audio controls #audioPlayer (timeupdate)="updateTime($event)" hidden (ended)="finishSong()">
+        <!-- <source type="audio/mpeg" src="https://automatizador.streamingsonidointerno.com/play/index.php?ssid=ec0363663758b238cd3074a2d5c4c803&amp;type=song&amp;oid=24&amp;uid=1&amp;player=api&amp;name=Don%20Tetto%20-%20Adicto%20Al%20Dolor%20-Lagrimas-.mp3"> -->
+        <source type="audio/mpeg" [src]="nextSong.url">
+      </audio>
+      <div class="container-musis">
+        <div class="item-row">
+          <mat-icon *ngIf="!isListen"(click)="onPlay()">play_circle_outline</mat-icon>
+          <mat-icon *ngIf="isListen"(click)="onPuase()">pause</mat-icon>
+          <img [src]="nextSong.art" width="60" height="60">
+          <div class="info-text">
+            <p><strong>{{nextSong.name}}</strong></p>
+            <p class="text-cort">{{nextSong.artist.name}}</p>
+          </div>
+        </div>
+        
+        
+        <div class="item-row">
+          <mat-icon class="equalizer">equalizer</mat-icon>
+          <div class="time">{{ currentTime }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

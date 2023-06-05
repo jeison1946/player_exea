@@ -1,0 +1,27 @@
+<div class="page-login">
+  <div class="main-content">
+   <!--  <div class="container-title-return">
+      <a class="return"><mat-icon class="blue-icon">keyboard_backspace</mat-icon> Atras</a>
+    </div> -->
+    <div class="content-form">
+      <ngb-alert *ngIf="alerts" [type]="alerts.type" (closed)="close()" class="alert-login">{{ alerts.message }}</ngb-alert>
+      <h3 class="h3 mb-3 font-weight-normal">Inicio de Sesión</h3>
+      <form class="form-signin" novalidate [formGroup]="form" (ngSubmit)="setDataLogin()">
+        <div class="form-field user">
+          <label for="inputEmail" class="sr-only">Usuario</label>
+          <input type="email" id="inputEmail" class="form-control" required autofocus formControlName="email">
+        </div>
+        <div class="form-field password">
+          <label for="inputPassword" class="sr-only">Contraseña</label>
+          <input [type]="passwordVisible ? 'text' : 'password'" id="inputPassword" class="form-control" required formControlName="password">
+          <mat-icon class="show-password" (click)="togglePasswordVisibility()">visibility</mat-icon>
+        </div>
+        <div class="button-submit">
+          <button class="btn-submit" type="submit" [disabled]='form.invalid || isNextDisabled'>Ingresar</button>
+        </div>
+      </form>
+    </div>
+    <div class="image-found">
+    </div>
+  </div>
+</div>

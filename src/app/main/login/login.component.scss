@@ -1,0 +1,52 @@
+.page-login{
+  height: 100svh;
+}
+
+.content-form{
+  text-align: center;
+}
+
+.main-content{
+  display: flex;
+  align-items: center;
+
+  .content-form{
+    width: 50%;
+
+    .form-signin{
+      padding: 0 2rem;
+      text-align: left;
+      max-width: 450px;
+      margin: auto;
+    }
+  }
+
+  .image-found{
+    width: 50%;
+    display: block;
+    height: 100%;
+    background-image: url(../../../assets/login_bg.png);
+    background-size: cover;
+    background-position: center;
+  }
+
+  label{
+    display: block
+  }
+
+  .form-field{
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .show-password{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    cursor: pointer;
+  }
+}
+
+.alert-login{
+  margin: 1rem;
+}
