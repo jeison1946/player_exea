@@ -28,7 +28,19 @@ export class HomeComponent implements OnInit{
     this.currentUser = this.getLocalStorage('user-session', true);
     this.currentCustomer = this.getLocalStorage('point-of-sale', true);
     this.songService.getNextSong(this.currentUser.point_of_sale_id).subscribe(response => {
-      this.nextSong = response;
+      if (response.url) {
+        this.songService.validateSong(response.url).subscribe(res => {
+          this.nextSong = response;
+        },
+        err => {
+          if(err.status == 200) {
+            this.nextSong = response;
+          } 
+          else {
+            this.nextSong = {error:true}
+          }
+        })
+      }
     });
     
   }

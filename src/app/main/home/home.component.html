@@ -10,7 +10,9 @@
         <mat-icon class="icon-exit" (click)="exitUser()">exit_to_app</mat-icon>
       </div>
     </div>
-
+    <div *ngIf="nextSong.error" class="widget-music">
+      <p>Hubo un error al cargar el audio, por favor validar el automatizador</p>
+    </div>
     <div *ngIf="nextSong.url" class="widget-music">
       <audio controls #audioPlayer (timeupdate)="updateTime($event)" hidden (ended)="finishSong()">
         <!-- <source type="audio/mpeg" src="https://automatizador.streamingsonidointerno.com/play/index.php?ssid=ec0363663758b238cd3074a2d5c4c803&amp;type=song&amp;oid=24&amp;uid=1&amp;player=api&amp;name=Don%20Tetto%20-%20Adicto%20Al%20Dolor%20-Lagrimas-.mp3"> -->

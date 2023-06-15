@@ -30,4 +30,8 @@ export class SongsService {
     let url = `${this.urlBase}/songs-history.json`;
     return this.httpClient.post<any>(url, JSON.stringify(fromObject));
   }
+
+  validateSong(url: string) {
+    return this.httpClient.get<any>(url);
+  }
 }
