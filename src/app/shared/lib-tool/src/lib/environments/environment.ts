@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://exeamonitor_cms.7local.com/api'
+  apiUrl: 'http://emisoras.local.com/api/v1'
 };

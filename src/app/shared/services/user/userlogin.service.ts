@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@media/environments';
 
@@ -12,21 +12,17 @@ export class UserloginService {
   ) { }
 
   loginUser(fields: any) {
-    const headers = {
-      'Content-Type': 'application/x-www-form-urlencoded'
+    const fromObject: any = {
+      "username": fields.email,
+      "password": fields.password,
     }
-    let body = new HttpParams({
-      fromObject: {
-        username: fields.email,
-        password: fields.password,
-      }
-    });
-    let url = `${this.urlBase}/login.json`;
-    return this.httpClient.post<any>(url, body, {headers: headers});
+    let url = `${this.urlBase}/user/login`;
+    return this.httpClient.post<any>(url, JSON.stringify(fromObject), {headers: {'Content-Type':'application/json'}});
   }
 
-  getCustomerByIdPoint(id:number) {
-    let url = `${this.urlBase}/points-of-sale/${id}.json`;
-    return this.httpClient.get<any>(url);
+  getCustomerByIdPoint(id:number, token:string) {
+    const headers = {'X-AUTH-TOKEN': token}
+    let url = `${this.urlBase}/customer?point_of_sale=${id}`;
+    return this.httpClient.get<any>(url, {headers: headers});
   }
 }

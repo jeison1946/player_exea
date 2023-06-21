@@ -34,8 +34,8 @@ export class LoginComponent {
   setDataLogin(): void {
     this.userLogin.loginUser(this.form.value).subscribe(response => {
       this.alerts = {};
-      this.userLogin.getCustomerByIdPoint(response.user.point_of_sale_id).subscribe(res => {
-        this.setSessionLogin(response, res[0]);
+      this.userLogin.getCustomerByIdPoint(response.payload.user_data.punto_de_venta, response.payload.token).subscribe(res => {
+        this.setSessionLogin(response.payload, res.payload);
       })
      
     },
@@ -54,7 +54,7 @@ export class LoginComponent {
 
   setSessionLogin(user: any, point_of_sale: any) {
     localStorage.setItem("token-session", btoa(user.token));
-    localStorage.setItem("user-session", btoa(JSON.stringify(user.user)));
+    localStorage.setItem("user-session", btoa(JSON.stringify(user.user_data)));
     localStorage.setItem("point-of-sale", btoa(JSON.stringify(point_of_sale)));
     this.router.navigateByUrl('/'); 
   }

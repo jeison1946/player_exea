@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@media/environments';
 
@@ -14,21 +14,26 @@ export class SongsService {
   ) { }
 
   getNextSong(posId: any) {
-    let url = `${this.urlBase}/player/next/${posId}.json`;
-    return this.httpClient.get<any>(url);
+    const token = atob(localStorage.getItem('token-session') || '') ?? false;
+    const headers = {'X-AUTH-TOKEN': token}
+    let url = `${this.urlBase}/player/next/${posId}`;
+    return this.httpClient.get<any>(url, {headers:headers});
   }
 
-  logSong(data: any, pointSale: number, pos:number, token: string | null) {
+  logSong(data: any, pointSale: number, pos:number) {
+    const token = atob(localStorage.getItem('token-session') || '') ?? false;
+    const headers = {
+      'X-AUTH-TOKEN': token,
+      'Content-Type':'application/json'
+    }
     const fromObject: any = {
         "title": data.title,
-        "author": data.artist.name,
-        "song_id": data.id,
-        "pos_id": pos,
-        "customer_id": pointSale
+        "author": data.albumartist,
+        "song_id": data.self.id,
+        "pos_id": pos
       }
-      console.log()
-    let url = `${this.urlBase}/songs-history.json`;
-    return this.httpClient.post<any>(url, JSON.stringify(fromObject));
+    let url = `${this.urlBase}/song/history`;
+    return this.httpClient.post<any>(url, JSON.stringify(fromObject), {headers:headers});
   }
 
   validateSong(url: string) {

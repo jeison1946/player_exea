@@ -27,19 +27,20 @@ export class HomeComponent implements OnInit{
   ngOnInit() {
     this.currentUser = this.getLocalStorage('user-session', true);
     this.currentCustomer = this.getLocalStorage('point-of-sale', true);
-    this.songService.getNextSong(this.currentUser.point_of_sale_id).subscribe(response => {
-      if (response.url) {
-        this.songService.validateSong(response.url).subscribe(res => {
-          this.nextSong = response;
+    this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
+      if (response.code == 200) {
+        console.log(response.payload.song);
+        /* this.songService.validateSong(response.payload.song).subscribe(res => {
+          this.nextSong = response.payload.song;
         },
         err => {
-          if(err.status == 200) {
-            this.nextSong = response;
-          } 
+          if(err.status == 200) { */
+            this.nextSong = response.payload.song;
+         /*  } 
           else {
             this.nextSong = {error:true}
           }
-        })
+        }) */
       }
     });
     
@@ -62,11 +63,9 @@ export class HomeComponent implements OnInit{
     container.play();
     this.isListen = true;
     this.songService.logSong(this.nextSong, 
-      this.currentCustomer.customer_id, 
-      this.currentUser.point_of_sale_id,
-      this.getLocalStorage('token-session')
+      this.currentCustomer.id, 
+      this.currentUser.punto_de_venta
       ).subscribe(response => {
-      
     });
   }
 

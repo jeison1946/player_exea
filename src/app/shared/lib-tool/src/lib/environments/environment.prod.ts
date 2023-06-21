@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://emisoras.streamingsonidointerno.com/api'
+  apiUrl: 'https://dev-emisoras.streamingsonidointerno.com/api'
 };
