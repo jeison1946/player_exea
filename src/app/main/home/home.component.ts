@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit{
     this.currentCustomer = this.getLocalStorage('point-of-sale', true);
     this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
       if (response.code == 200) {
-        console.log(response.payload.song);
         /* this.songService.validateSong(response.payload.song).subscribe(res => {
           this.nextSong = response.payload.song;
         },
@@ -41,6 +40,11 @@ export class HomeComponent implements OnInit{
             this.nextSong = {error:true}
           }
         }) */
+      }
+    },
+    err => {
+      if(err.status == 500) {
+        this.exitUser();
       }
     });
     
