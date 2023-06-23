@@ -47,7 +47,6 @@ export class HomeComponent implements OnInit{
         this.exitUser();
       }
     });
-    
   }
 
   updateTime(time:any) {
@@ -80,7 +79,7 @@ export class HomeComponent implements OnInit{
   }
 
   finishSong() {
-    this.songService.getNextSong(this.currentUser.point_of_sale_id).subscribe(response => {
+    this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
       this.nextSong = response;
       this.onPlay();
     });
