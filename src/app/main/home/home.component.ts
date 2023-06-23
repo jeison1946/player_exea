@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit{
   finishSong() {
     this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
       if (response.code == 200) {
-        this.nextSong = response;
+        this.nextSong = response.payload.song;
         this.onPlay();
       }
     },
