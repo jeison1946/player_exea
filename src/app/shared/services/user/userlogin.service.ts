@@ -20,6 +20,14 @@ export class UserloginService {
     return this.httpClient.post<any>(url, JSON.stringify(fromObject), {headers: {'Content-Type':'application/json'}});
   }
 
+  logoutUser(token:any) {
+    const fromObject: any = {
+      "X-AUTH-TOKEN": token,
+    }
+    let url = `${this.urlBase}/auth/logout`;
+    return this.httpClient.post<any>(url, JSON.stringify(fromObject), {headers: {'Content-Type':'application/json'}});
+  }
+
   getCustomerByIdPoint(id:number, token:string) {
     const headers = {'X-AUTH-TOKEN': token}
     let url = `${this.urlBase}/customer?point_of_sale=${id}`;

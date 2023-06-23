@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SongsService } from 'src/app/shared/services/songs/songs.service';
+import { UserloginService } from 'src/app/shared/services/user/userlogin.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit{
 
   currentCustomer: any;
 
-  constructor(public songService: SongsService, private router: Router) {
+  constructor(public songService: SongsService, private router: Router, private userService: UserloginService) {
   }
 
 
@@ -29,17 +30,7 @@ export class HomeComponent implements OnInit{
     this.currentCustomer = this.getLocalStorage('point-of-sale', true);
     this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
       if (response.code == 200) {
-        /* this.songService.validateSong(response.payload.song).subscribe(res => {
-          this.nextSong = response.payload.song;
-        },
-        err => {
-          if(err.status == 200) { */
-            this.nextSong = response.payload.song;
-         /*  } 
-          else {
-            this.nextSong = {error:true}
-          }
-        }) */
+        this.nextSong = response.payload.song;
       }
     },
     err => {
@@ -80,8 +71,15 @@ export class HomeComponent implements OnInit{
 
   finishSong() {
     this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
-      this.nextSong = response;
-      this.onPlay();
+      if (response.code == 200) {
+        this.nextSong = response;
+        this.onPlay();
+      }
+    },
+    err => {
+      if(err.status == 500) {
+        this.exitUser();
+      }
     });
   }
 
