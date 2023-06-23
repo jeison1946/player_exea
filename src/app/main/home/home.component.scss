@@ -18,6 +18,11 @@
   background-size: cover;
   background-position-x: right;
   background-position-y: top;
+
+  &.error p {
+    display: block;
+    color: #ffffff;
+  }
 }
 
 .container-musis{

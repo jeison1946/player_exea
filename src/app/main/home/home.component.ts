@@ -28,16 +28,7 @@ export class HomeComponent implements OnInit{
   ngOnInit() {
     this.currentUser = this.getLocalStorage('user-session', true);
     this.currentCustomer = this.getLocalStorage('point-of-sale', true);
-    this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
-      if (response.code == 200) {
-        this.nextSong = response.payload.song;
-      }
-    },
-    err => {
-      if(err.status == 500) {
-        this.exitUser();
-      }
-    });
+    this.getSongNext();
   }
 
   updateTime(time:any) {
@@ -56,8 +47,8 @@ export class HomeComponent implements OnInit{
     const container = this.audioPlayer?.nativeElement;
     container.play();
     this.isListen = true;
-    this.songService.logSong(this.nextSong, 
-      this.currentCustomer.id, 
+    this.songService.logSong(this.nextSong,
+      this.currentCustomer.id,
       this.currentUser.punto_de_venta
       ).subscribe(response => {
     });
@@ -72,8 +63,20 @@ export class HomeComponent implements OnInit{
   finishSong() {
     this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
       if (response.code == 200) {
-        this.nextSong = response.payload.song;
-        this.onPlay();
+        this.songService.validateSong(response.payload.song.url).subscribe(res => {
+          this.nextSong = response.payload.song;
+          this.onPlay();
+        },
+        err => {
+          if(err.status == 200) {
+            this.nextSong = response.payload.song;
+            this.onPlay();
+          } 
+          else {
+            this.nextSong = {error:true}
+            this.finishSong();
+          }
+        });
       }
     },
     err => {
@@ -86,7 +89,7 @@ export class HomeComponent implements OnInit{
   convertTime(time: number): string {
     const minutes = Math.floor(time / 60); // Obtener los minutos
     const seconds = Math.floor(time % 60); // Obtener los segundos
-  
+
     // Formatear el tiempo en minutos y segundos
     const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
@@ -96,6 +99,30 @@ export class HomeComponent implements OnInit{
   exitUser() {
     localStorage.clear();
     this.router.navigateByUrl('/login');
+  }
+
+  getSongNext() {
+    this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
+      if (response.code == 200) {
+        this.songService.validateSong(response.payload.song.url).subscribe(res => {
+          this.nextSong = response.payload.song;
+        },
+        err => {
+          if(err.status == 200) {
+            this.nextSong = response.payload.song;
+          } 
+          else {
+            this.nextSong = {error:true}
+            this.getSongNext();
+          }
+        });
+      }
+    },
+    err => {
+      if(err.status == 500) {
+        this.exitUser();
+      }
+    });
   }
 
 }

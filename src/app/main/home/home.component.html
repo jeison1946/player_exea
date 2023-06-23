@@ -10,8 +10,8 @@
         <mat-icon class="icon-exit" (click)="exitUser()">exit_to_app</mat-icon>
       </div>
     </div>
-    <div *ngIf="nextSong.error" class="widget-music">
-      <p>Hubo un error al cargar el audio, por favor validar el automatizador</p>
+    <div *ngIf="nextSong.error" class="widget-music error">
+      <p>Hubo un error al cargar el audio, por favor validar el automatizador (se pasará la siguiente cación)</p>
     </div>
     <div *ngIf="nextSong.url" class="widget-music">
       <audio controls #audioPlayer (timeupdate)="updateTime($event)" hidden (ended)="finishSong()">
