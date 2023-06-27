@@ -11,7 +11,7 @@ import { UserloginService } from 'src/app/shared/services/user/userlogin.service
 export class HomeComponent implements OnInit{
   public nextSong:any = {};
 
-  @ViewChild('audioPlayer') audioPlayer: ElementRef | undefined;
+  @ViewChild('audioPlayer') audioPlayer: any;
 
   currentTime: any = '0:00';
 
@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit{
   isListen:boolean = false;
 
   currentCustomer: any;
+
+  displayLoader:boolean = false;
 
   constructor(public songService: SongsService, private router: Router, private userService: UserloginService) {
   }
@@ -44,8 +46,9 @@ export class HomeComponent implements OnInit{
   }
 
   onPlay(){
-    const container = this.audioPlayer?.nativeElement;
-    container.play();
+    const player = <HTMLAudioElement>document.getElementById("player");
+    player.setAttribute('src', this.nextSong.url);
+    player.play();
     this.isListen = true;
     this.songService.logSong(this.nextSong,
       this.currentCustomer.id,
@@ -55,20 +58,23 @@ export class HomeComponent implements OnInit{
   }
 
   onPuase() {
-    const container = this.audioPlayer?.nativeElement;
-    container.pause();
+    const player = <HTMLAudioElement>document.getElementById("player");
+    player.pause();
     this.isListen = false;
   }
 
   finishSong() {
+    this.displayLoader = true;
     this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
       if (response.code == 200) {
         this.songService.validateSong(response.payload.song.url).subscribe(res => {
+          this.displayLoader = false;
           this.nextSong = response.payload.song;
           this.onPlay();
         },
         err => {
           if(err.status == 200) {
+            this.displayLoader = false;
             this.nextSong = response.payload.song;
             this.onPlay();
           } 
@@ -102,14 +108,17 @@ export class HomeComponent implements OnInit{
   }
 
   getSongNext() {
+    this.displayLoader = true;
     this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
       if (response.code == 200) {
         this.songService.validateSong(response.payload.song.url).subscribe(res => {
           this.nextSong = response.payload.song;
+          this.displayLoader = false;
         },
         err => {
           if(err.status == 200) {
             this.nextSong = response.payload.song;
+            this.displayLoader = false;
           } 
           else {
             this.nextSong = {error:true}
