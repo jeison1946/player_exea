@@ -20,7 +20,7 @@ export class SongsService {
     return this.httpClient.get<any>(url, {headers:headers});
   }
 
-  logSong(data: any, pointSale: number, pos:number) {
+  logSong(data: any, pos:number, rule:any) {
     const token = atob(localStorage.getItem('token-session') || '') ?? false;
     const headers = {
       'X-AUTH-TOKEN': token,
@@ -30,7 +30,8 @@ export class SongsService {
         "title": data.title,
         "author": data.albumartist,
         "song_id": data.self.id,
-        "pos_id": pos
+        "pos_id": pos,
+        "rule_id": rule
       }
     let url = `${this.urlBase}/song/history`;
     return this.httpClient.post<any>(url, JSON.stringify(fromObject), {headers:headers});

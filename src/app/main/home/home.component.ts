@@ -23,6 +23,8 @@ export class HomeComponent implements OnInit{
 
   displayLoader:boolean = false;
 
+  rule: any = false
+
   constructor(public songService: SongsService, private router: Router, private userService: UserloginService) {
   }
 
@@ -50,9 +52,10 @@ export class HomeComponent implements OnInit{
     player.setAttribute('src', this.nextSong.url);
     player.play();
     this.isListen = true;
-    this.songService.logSong(this.nextSong,
-      this.currentCustomer.id,
-      this.currentUser.punto_de_venta
+    this.songService.logSong(
+      this.nextSong,
+      this.currentUser.punto_de_venta,
+      this.rule
       ).subscribe(response => {
     });
   }
@@ -69,12 +72,14 @@ export class HomeComponent implements OnInit{
       if (response.code == 200) {
         this.songService.validateSong(response.payload.song.url).subscribe(res => {
           this.displayLoader = false;
+          this.rule = response.payload.ruleId;
           this.nextSong = response.payload.song;
           this.onPlay();
         },
         err => {
           if(err.status == 200) {
             this.displayLoader = false;
+            this.rule = response.payload.ruleId;
             this.nextSong = response.payload.song;
             this.onPlay();
           } 
@@ -112,11 +117,13 @@ export class HomeComponent implements OnInit{
     this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
       if (response.code == 200) {
         this.songService.validateSong(response.payload.song.url).subscribe(res => {
+          this.rule = response.payload.ruleId;
           this.nextSong = response.payload.song;
           this.displayLoader = false;
         },
         err => {
           if(err.status == 200) {
+            this.rule = response.payload.ruleId;
             this.nextSong = response.payload.song;
             this.displayLoader = false;
           } 
