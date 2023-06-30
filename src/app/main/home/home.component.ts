@@ -132,6 +132,7 @@ export class HomeComponent implements OnInit{
             this.getSongNext();
           }
         });
+        this.listenByTime(response.payload.rules_hours);
       }
     },
     err => {
@@ -141,4 +142,57 @@ export class HomeComponent implements OnInit{
     });
   }
 
+  listenByTime(ruleHours:any) {
+    if(ruleHours) {
+      Object.entries(ruleHours).forEach((element:any) => {
+        const hours = element[1].hours;
+        hours.forEach((item:any) => {
+          this.executeTime(item, element[0], element[1].id);
+        })
+      });
+    }
+  }
+
+  executeTime(time:any, ruleId:number, id:number) {
+    var timerManager = (function () {
+      let timers:any = [];
+      return {
+        addTimer: function (callback:any, timeout:any) {
+          let timer:any, that:any = this;
+          timer = setTimeout(function () {
+              that.removeTimer(timer);
+              callback();
+          }, timeout);
+          timers.push(timer);
+          return timer;
+        },
+        removeTimer: function (timer:any) {
+          clearTimeout(timer);
+          timers.splice(timers.indexOf(timer), 1);
+        },
+        getTimers: function () {
+          return timers;
+        },
+    };
+   })();
+
+    const now:Date = new Date();
+    time = new Date(time).valueOf() - now.valueOf();
+    if(time > 10) {
+      console.log(time)
+      timerManager.addTimer(() =>{
+        this.songByTime(ruleId, id)
+      }, time)
+    }
+  }
+
+  songByTime(ruleId:number, id:number) {
+    this.displayLoader = true;
+    this.songService.songByRule(id).subscribe(response => {
+      this.displayLoader = false;
+      this.rule = ruleId;
+      this.nextSong = response.payload.song;
+      this.onPlay();
+    });
+  }
 }

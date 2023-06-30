@@ -37,6 +37,13 @@ export class SongsService {
     return this.httpClient.post<any>(url, JSON.stringify(fromObject), {headers:headers});
   }
 
+  songByRule(id:any){
+    const token = atob(localStorage.getItem('token-session') || '') ?? false;
+    const headers = {'X-AUTH-TOKEN': token}
+    let url = `${this.urlBase}/player/song/${id}`;
+    return this.httpClient.get<any>(url, {headers:headers});
+  }
+
   validateSong(url: string) {
     return this.httpClient.get<any>(url);
   }
