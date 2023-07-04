@@ -132,7 +132,7 @@ export class HomeComponent implements OnInit{
             this.getSongNext();
           }
         });
-        this.listenByTime(response.payload.rules_hours);
+        //this.listenByTime(response.payload.rules_hours);
       }
     },
     err => {
