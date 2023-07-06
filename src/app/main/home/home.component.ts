@@ -88,6 +88,7 @@ export class HomeComponent implements OnInit{
             this.finishSong();
           }
         });
+        this.listenByTime(response.payload.rules_hours);
       }
     },
     err => {
