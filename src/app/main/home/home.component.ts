@@ -133,6 +133,7 @@ export class HomeComponent implements OnInit{
             this.getSongNext();
           }
         });
+        
         this.listenByTime(response.payload.rules_hours);
       }
     },
@@ -147,43 +148,10 @@ export class HomeComponent implements OnInit{
     if(ruleHours) {
       Object.entries(ruleHours).forEach((element:any) => {
         const hours = element[1].hours;
-        hours.forEach((item:any) => {
-          this.executeTime(item, element[0], element[1].id);
+        hours.forEach((item:any, index:any) => {
+          this.addTimer(item, element[0], element[1].id, index);
         })
       });
-    }
-  }
-
-  executeTime(time:any, ruleId:number, id:number) {
-    var timerManager = (function () {
-      let timers:any = [];
-      return {
-        addTimer: function (callback:any, timeout:any) {
-          let timer:any, that:any = this;
-          timer = setTimeout(function () {
-              that.removeTimer(timer);
-              callback();
-          }, timeout);
-          timers.push(timer);
-          return timer;
-        },
-        removeTimer: function (timer:any) {
-          clearTimeout(timer);
-          timers.splice(timers.indexOf(timer), 1);
-        },
-        getTimers: function () {
-          return timers;
-        },
-    };
-   })();
-
-    const now:Date = new Date();
-    time = new Date(time).valueOf() - now.valueOf();
-    if(time > 10) {
-      console.log(time)
-      timerManager.addTimer(() =>{
-        this.songByTime(ruleId, id)
-      }, time)
     }
   }
 
@@ -195,5 +163,28 @@ export class HomeComponent implements OnInit{
       this.nextSong = response.payload.song;
       this.onPlay();
     });
+  }
+
+  addTimer(time: any, ruleId:number, id:number, index:any) {
+    const existe:any = localStorage.getItem(`${ruleId}-${index}`);
+    const now:Date = new Date();
+    const timeNew = new Date(time).valueOf() - now.valueOf();
+    if(existe) {
+      const current = JSON.parse(existe);
+      clearTimeout(current.timer);
+      localStorage.removeItem(`${ruleId}-${index}`);
+    }
+    if(timeNew > 10) {
+      const timer:any = setTimeout( () => {
+        this.songByTime(ruleId, id);
+      }, timeNew);
+      const data = {
+        ruleId: ruleId,
+        id: time,
+        timer: timer,
+        index:index
+      }
+      localStorage.setItem(`${ruleId}-${index}`, JSON.stringify(data));
+    }
   }
 }
