@@ -1,9 +1,14 @@
 
 <div class="page-home">
   <div class="main-content">
-    <div class="menu-navigation">
-      <div class="title">
-        <h1>Player Web</h1>
+    <div class="menu-navigation" [style.background-color]="currentCustomer.color_primario">
+      <div class="info-site">
+        <div class="logo">
+          <img *ngIf="currentCustomer" [src]="currentCustomer.logo.url" [alt]="currentCustomer.title" width="60">
+        </div>
+        <div class="title">
+          <h1>{{currentCustomer.title}}</h1>
+        </div>
       </div>
       <div class="user-actions">
         <p>{{currentUser.nombre}} {{currentUser.apellido}}</p>
@@ -16,10 +21,10 @@
     <div *ngIf="nextSong.error" class="widget-music error" [class]="displayLoader ? 'hidden' : ''">
       <p>Hubo un error al cargar el audio, por favor validar el automatizador (se pasará la siguiente cación)</p>
     </div>
-    <div *ngIf="nextSong.url" class="widget-music" [class]="displayLoader ? 'hidden' : ''">
+    <div *ngIf="nextSong.url" class="widget-music" [class]="displayLoader ? 'hidden' : ''" [style.background-image]="'url(' + currentCustomer.imagen_de_fondo.url + ')'">
       <audio controls id="player" (timeupdate)="updateTime($event)" hidden (ended)="finishSong()">
       </audio>
-      <div class="container-musis">
+      <div class="container-musis" [style.background-color]="currentCustomer.color_primario">
         <div class="item-row">
           <mat-icon *ngIf="!isListen"(click)="onPlay()">play_circle_outline</mat-icon>
           <mat-icon *ngIf="isListen"(click)="onPuase()">pause</mat-icon>

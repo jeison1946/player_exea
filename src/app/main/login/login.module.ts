@@ -4,7 +4,6 @@ import { LoginComponent } from './login.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import {MatDialogModule} from '@angular/material/dialog';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { SessionGuard } from 'src/app/shared/guards/session.guard';
 
