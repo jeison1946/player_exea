@@ -69,7 +69,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 10px;
 
   .info-site{
     display: flex;
@@ -97,11 +97,4 @@
       margin-left: 10px;
     }
   }
-}
-
-.main-loader{
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

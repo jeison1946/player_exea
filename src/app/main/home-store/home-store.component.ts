@@ -11,6 +11,9 @@ export class HomeStoreComponent {
   content:any = {
     error:true
   };
+
+  displayLoader:boolean = false;
+
   constructor(private route: ActivatedRoute, public storeService: StoreService){
   }
 
@@ -19,11 +22,16 @@ export class HomeStoreComponent {
   };
 
   getStore() {
+    this.displayLoader = true;
     const id:any = this.route.snapshot.paramMap.get('id');
     this.storeService.getStore(id).subscribe(response => {
       if(response.code == 200) {
         this.content = response.payload
       }
+      this.displayLoader = false;
+    },
+    err => {
+      this.displayLoader = false;
     })
   }
 }

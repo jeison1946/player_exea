@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PagenotfoundComponent } from '../pagenotfound/pagenotfound.component';
 import { HomeStoreComponent } from './home-store.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { HomeStoreComponent } from './home-store.component';
         component: PagenotfoundComponent
       }
     ]),
-    PagenotfoundComponent
+    PagenotfoundComponent,
+    MatIconModule
   ]
 })
 export class HomeStoreModule { }

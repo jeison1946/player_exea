@@ -19,8 +19,8 @@
   }
 
   .main-content {
-    flex-direction: column;
-    display: flex;
+    /* flex-direction: column;
+    display: flex; */
   }
 
   .widget-music{
@@ -28,9 +28,50 @@
     width: 100%;
     height: 100%;
     align-items: center;
+    justify-content: center;
     background-size: cover;
     background-position-x: right;
     background-position-y: top;
+  }
+
+  .container-item-list{
+    overflow-y:scroll;
+    height: 70%;
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: darkgrey;
+      outline: 1px solid slategrey;
+    }
+
+    color: #ffffff;
+
+    .info-text{
+      margin-left: 10px;
+    }
+
+    .item-list{
+      padding: 16px;
+      border-radius: 1rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+
+      p{
+        margin: 0;
+      }
+    }
+  }
+
+  .icon-add{
+    margin-left: auto;
+    cursor: pointer;
   }
   
 }

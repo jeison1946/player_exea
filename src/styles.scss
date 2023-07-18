@@ -65,6 +65,20 @@ label{
   margin: 5px 0;
 }
 
+.main-loader{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.pagecomplete {
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    z-index: 1;
+  }
+}
+
 *{
   box-sizing: border-box;
   font-family: Roboto;

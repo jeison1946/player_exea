@@ -16,6 +16,10 @@ export class LoginComponent {
 
   alerts:any;
 
+  infoPage:any = false;
+
+  displayLoader:boolean = false;
+
   constructor(private _formBuilder: FormBuilder, public userLogin: UserloginService, private router: Router) {
     this.form = this._formBuilder.group({
       email: ['', Validators.compose([
@@ -29,6 +33,7 @@ export class LoginComponent {
     this.form.valueChanges.subscribe((v) => {
       this.isNextDisabled = !this.form.valid;
     });
+    this.getInfoPage();
   }
 
   setDataLogin(): void {
@@ -65,5 +70,19 @@ export class LoginComponent {
   
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
+  }
+
+  getInfoPage() {
+    this.displayLoader = true;
+    this.userLogin.getInfoPage().subscribe(response => {
+      if(response.payload.url_fondo && response.payload.color) {
+        
+        this.infoPage = {
+          fondo: response.payload.url_fondo,
+          color: response.payload.color
+        }
+      }
+      this.displayLoader = false;
+    })
   }
 }

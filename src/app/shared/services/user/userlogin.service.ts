@@ -33,4 +33,9 @@ export class UserloginService {
     let url = `${this.urlBase}/customer?point_of_sale=${id}`;
     return this.httpClient.get<any>(url, {headers: headers});
   }
+
+  getInfoPage() {
+    let url = `${this.urlBase}/home`;
+    return this.httpClient.get<any>(url);
+  }
 }
