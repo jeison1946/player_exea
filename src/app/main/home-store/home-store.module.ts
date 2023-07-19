@@ -2,20 +2,27 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PagenotfoundComponent } from '../pagenotfound/pagenotfound.component';
-import { HomeStoreComponent } from './home-store.component';
 import { MatIconModule } from '@angular/material/icon';
+import { ClientComponent } from './client/client.component';
+import { StoreComponent } from './store/store.component';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
   declarations: [
-    HomeStoreComponent
+    ClientComponent,
+    StoreComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild([
       {
         path: ':id',
-        component: HomeStoreComponent,
+        component: ClientComponent,
+      },
+      {
+        path: 'point_of_sale/:id',
+        component: StoreComponent,
       },
       {
         path: '**',
@@ -23,7 +30,8 @@ import { MatIconModule } from '@angular/material/icon';
       }
     ]),
     PagenotfoundComponent,
-    MatIconModule
+    MatIconModule,
+    NgbAlertModule
   ]
 })
 export class HomeStoreModule { }

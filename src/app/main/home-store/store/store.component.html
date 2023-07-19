@@ -3,23 +3,25 @@
     <div class="spinner-border text-info " role="status"></div>
   </div>
   <div class="main-content" *ngIf="!content.error">
-    <div class="menu-navigation" [style.background-color]="content.color_primario">
+    <div class="menu-navigation" [style.background-color]="content.client.color_primario">
       <div class="logo">
-        <img *ngIf="content" [src]="content.logo.url" [alt]="content.title" width="60">
+        <img *ngIf="content" [src]="content.client.logo.url" [alt]="content.client.title" width="60">
       </div>
       <div class="title">
         <h1>{{content.title}}</h1>
       </div>
     </div>
-    <div class="widget-music" [style.background-image]="'url(' + content.imagen_de_fondo.url + ')'">
-      <div class="container-item-list">
-        <div class="item-list" [style.background-color]="content.color_primario" *ngFor="let item of content.songs">
+    <ngb-alert *ngIf="alerts" [type]="alerts.type" (closed)="close()" class="alert-login">{{ alerts.message }}</ngb-alert>
+    <div class="widget-music" [style.background-image]="'url(' + content.client.imagen_de_fondo.url + ')'">
+      
+      <div class="container-item-list" *ngIf="content.songs">
+        <div class="item-list" [style.background-color]="content.client.color_primario" *ngFor="let item of content.songs">
           <img [src]="item.song.art" width="60" height="60">
           <div class="info-text">
             <p><strong>{{item.song.name}}</strong></p>
             <p class="text-cort">{{item.song.name}}</p>
           </div>
-          <mat-icon class="icon-add">note_add</mat-icon>
+          <mat-icon class="icon-add" (click)="addResquestLog(item.song)">note_add</mat-icon>
         </div>
       </div>
     </div>

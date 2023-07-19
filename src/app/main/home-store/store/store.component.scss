@@ -35,6 +35,8 @@
   }
 
   .container-item-list{
+    max-width: 900px;
+    width: 100%;
     overflow-y:scroll;
     height: 70%;
     &::-webkit-scrollbar {
@@ -72,6 +74,12 @@
   .icon-add{
     margin-left: auto;
     cursor: pointer;
+  }
+
+  .alert{
+    position: fixed;
+    left: 0;
+    right: 0;
   }
   
 }
