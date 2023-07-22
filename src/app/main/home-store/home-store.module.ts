@@ -6,12 +6,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { ClientComponent } from './client/client.component';
 import { StoreComponent } from './store/store.component';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { RequestSongsComponent } from 'src/app/shared/components/request-songs/request-songs.component';
+import { OptionsMenuComponent } from 'src/app/shared/components/options-menu/options-menu.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
   declarations: [
     ClientComponent,
-    StoreComponent
+    StoreComponent,
   ],
   imports: [
     CommonModule,
@@ -29,7 +33,11 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
         component: PagenotfoundComponent
       }
     ]),
+    //Componets
     PagenotfoundComponent,
+    RequestSongsComponent,
+    OptionsMenuComponent,
+    //Modules
     MatIconModule,
     NgbAlertModule
   ]

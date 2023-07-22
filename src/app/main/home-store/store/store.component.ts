@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StoreService } from 'src/app/shared/services/store/store.service';
@@ -18,12 +19,23 @@ export class StoreComponent {
 
   alerts:any;
 
+  public navItems: any[] = [
+    {title: 'Solicita una canción', id: 'request_song'},
+    {title: 'En cola', id: 'in_cola'},
+  ];
+
+  selectedComponent: any = {title: 'Solicita una canción', id: 'request_song'};
+
   constructor(private route: ActivatedRoute, public storeService: StoreService){
   }
 
   ngOnInit(): void {
     this.getStore();
   };
+
+  loadComponent(event: any) {
+    this.selectedComponent = event;
+  }
 
   getStore() {
     this.displayLoader = true;

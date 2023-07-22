@@ -1,0 +1,7 @@
+<div class="item-list" [style.background-color]="backGroundColor" *ngFor="let item of listSong">
+  <img [src]="item.art" width="60" height="60">
+  <div class="info-text">
+    <p><strong>{{item.name}}</strong></p>
+    <p class="text-cort">{{item.artist}}</p>
+  </div>
+</div>

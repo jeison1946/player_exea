@@ -13,16 +13,21 @@
     </div>
     <ngb-alert *ngIf="alerts" [type]="alerts.type" (closed)="close()" class="alert-login">{{ alerts.message }}</ngb-alert>
     <div class="widget-music" [style.background-image]="'url(' + content.client.imagen_de_fondo.url + ')'">
-      
-      <div class="container-item-list" *ngIf="content.songs">
-        <div class="item-list" [style.background-color]="content.client.color_primario" *ngFor="let item of content.songs">
-          <img [src]="item.song.art" width="60" height="60">
-          <div class="info-text">
-            <p><strong>{{item.song.name}}</strong></p>
-            <p class="text-cort">{{item.song.name}}</p>
+      <div class="vertical">
+        <app-options-menu [listItems]="navItems" (itemSelect)="loadComponent($event)" [backgroudColor]="content.client.color_primario"></app-options-menu>
+      </div>
+      <div [ngSwitch]="selectedComponent.id" class="container-item-list">
+        <div *ngSwitchCase="'request_song'" class="animate-switch">
+          <div class="item-list" [style.background-color]="content.client.color_primario" *ngFor="let item of content.songs">
+            <img [src]="item.song.art" width="60" height="60">
+            <div class="info-text">
+              <p><strong>{{item.song.name}}</strong></p>
+              <p class="text-cort">{{item.song.artist}}</p>
+            </div>
+            <mat-icon class="icon-add" (click)="addResquestLog(item.song)">note_add</mat-icon>
           </div>
-          <mat-icon class="icon-add" (click)="addResquestLog(item.song)">note_add</mat-icon>
         </div>
+        <app-request-songs *ngSwitchCase="'in_cola'" class="animate-switch" [poSale]="pointOfSale" [backGroundColor]="content.client.color_primario"></app-request-songs>
       </div>
     </div>
   </div>

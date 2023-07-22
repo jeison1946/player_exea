@@ -29,11 +29,17 @@ export class StoreService {
     }
     const fromObject: any = {
         "title": data.name,
-        "author": data.albumartist,
+        "author": data.artist,
         "song_id": data.self.id,
         "pos_id": pointOfsale,
+        "url_imagen": data.art,
       }
     let url = `${this.urlBase}/song/request`;
     return this.httpClient.post<any>(url, JSON.stringify(fromObject), {headers:headers});
+  }
+
+  getListSongRequest(id:string) {
+    let url = `${this.urlBase}/song/request/${id}`;
+    return this.httpClient.get<any>(url);
   }
 }

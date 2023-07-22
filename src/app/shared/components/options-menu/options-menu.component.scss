@@ -1,0 +1,28 @@
+.navbar-collapse{
+  justify-content: center;
+}
+
+.menu-iteractive{
+  background-color: #eeeeee;
+  border-radius: 2rem;
+
+  a{
+    color: black;
+
+    &.active{
+      color: #ffffff;
+    }
+  }
+
+  li{
+    padding: 0 1rem;
+    cursor: pointer;
+  }
+
+  li.active {
+    border-radius: 2rem;
+
+    
+  }
+  
+}
