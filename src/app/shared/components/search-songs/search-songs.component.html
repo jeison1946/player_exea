@@ -1,0 +1,12 @@
+<form class="form-search" autocomplete="off">
+  <input 
+    type="text"
+    placeholder="Busca canciones, albumes o artistas"
+    matInput
+    id="inputext"
+    (keyup)="eventText($event)"
+  >
+  <div class="spinner-border spinner-border-sm" role="status" *ngIf="loader">
+    <span class="visually-hidden"></span>
+  </div>
+</form>

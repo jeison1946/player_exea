@@ -10,6 +10,7 @@ import { RequestSongsComponent } from 'src/app/shared/components/request-songs/r
 import { OptionsMenuComponent } from 'src/app/shared/components/options-menu/options-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { SearchSongsComponent } from 'src/app/shared/components/search-songs/search-songs.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { BrowserModule } from '@angular/platform-browser';
     PagenotfoundComponent,
     RequestSongsComponent,
     OptionsMenuComponent,
+    SearchSongsComponent,
     //Modules
     MatIconModule,
     NgbAlertModule

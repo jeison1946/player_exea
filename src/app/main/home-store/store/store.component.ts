@@ -19,6 +19,10 @@ export class StoreComponent {
 
   alerts:any;
 
+  searchSongs:any;
+
+  loaderSong:boolean = false;
+
   public navItems: any[] = [
     {title: 'Solicita una canción', id: 'request_song'},
     {title: 'En cola', id: 'in_cola'},
@@ -35,6 +39,7 @@ export class StoreComponent {
 
   loadComponent(event: any) {
     this.selectedComponent = event;
+    this.searchSongs = false;
   }
 
   getStore() {
@@ -77,5 +82,14 @@ export class StoreComponent {
         this.alerts = false;
       }, 3000);
     })
+  }
+
+  listSongByTitle(event:any) {
+    if (!event) {
+      this.searchSongs = false;
+    }
+    else {
+      this.searchSongs =  event;
+    }
   }
 }

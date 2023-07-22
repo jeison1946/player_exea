@@ -47,4 +47,9 @@ export class SongsService {
   validateSong(url: string) {
     return this.httpClient.get<any>(url);
   }
+
+  songByTitle(title: string) {
+    let url = `${this.urlBase}/player/song?title=${title}`;
+    return this.httpClient.get<any>(url);
+  }
 }
