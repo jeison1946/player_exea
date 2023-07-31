@@ -70,24 +70,10 @@ export class HomeComponent implements OnInit{
     this.displayLoader = true;
     this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
       if (response.code == 200) {
-        this.songService.validateSong(response.payload.song.url).subscribe(res => {
-          this.displayLoader = false;
-          this.rule = response.payload.ruleId;
-          this.nextSong = response.payload.song;
-          this.onPlay();
-        },
-        err => {
-          if(err.status == 200) {
-            this.displayLoader = false;
-            this.rule = response.payload.ruleId;
-            this.nextSong = response.payload.song;
-            this.onPlay();
-          } 
-          else {
-            this.nextSong = {error:true}
-            this.finishSong();
-          }
-        });
+        this.displayLoader = false;
+        this.rule = response.payload.ruleId;
+        this.nextSong = response.payload.song;
+        this.onPlay();
         this.listenByTime(response.payload.rules_hours);
       }
     },
@@ -117,23 +103,9 @@ export class HomeComponent implements OnInit{
     this.displayLoader = true;
     this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
       if (response.code == 200) {
-        this.songService.validateSong(response.payload.song.url).subscribe(res => {
-          this.rule = response.payload.ruleId;
-          this.nextSong = response.payload.song;
-          this.displayLoader = false;
-        },
-        err => {
-          if(err.status == 200) {
-            this.rule = response.payload.ruleId;
-            this.nextSong = response.payload.song;
-            this.displayLoader = false;
-          } 
-          else {
-            this.nextSong = {error:true}
-            this.getSongNext();
-          }
-        });
-        
+        this.rule = response.payload.ruleId;
+        this.nextSong = response.payload.song;
+        this.displayLoader = false;
         this.listenByTime(response.payload.rules_hours);
       }
     },
