@@ -159,4 +159,25 @@ export class HomeComponent implements OnInit{
       localStorage.setItem(`${ruleId}-${index}`, JSON.stringify(data));
     }
   }
+
+
+  getDateMilisegunds(dateString: string){
+    const parts = dateString.split(" ");
+    const months:any = {
+      Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+    };
+
+    const dateObject = new Date(
+      Date.UTC(
+        parseInt(parts[3]), // Year
+        months[parts[1]],   // Month
+        parseInt(parts[2]), // Day
+        parseInt(parts[4]), // Hour
+        parseInt(parts[5]), // Minute
+        parseInt(parts[6])  // Second
+      )
+    );
+
+    return dateObject.getTime();
+  }
 }
