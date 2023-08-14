@@ -1,0 +1,26 @@
+.page-login{
+  height: 100svh;
+}
+
+
+.main-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  .imagen{
+    text-align: center;
+  }
+
+  .title{
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .description{
+    max-width: 900px;
+    margin: auto;
+    padding: 0 20px;
+  }
+}

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { MaintenanceComponent } from './maintenance/maintenance.component';
 
 
 
@@ -11,7 +12,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
   imports: [
     CommonModule,
     RouterModule.forChild([
-      {
+      /* {
         path: '',
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },
@@ -22,10 +23,10 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
       {
         path: 'store',
         loadChildren: () => import('./home-store/home-store.module').then(m => m.HomeStoreModule)
-      },
+      }, */
       {
         path: '**',
-        component: PagenotfoundComponent
+        component: MaintenanceComponent
       }
     ]),
   ],
