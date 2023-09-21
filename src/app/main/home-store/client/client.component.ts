@@ -16,6 +16,9 @@ export class ClientComponent {
 
   storeId:any;
 
+  favIcon: HTMLLinkElement | null = document.querySelector('#favIcon');
+  titlePage: HTMLLinkElement | null = document.querySelector('#titlePage');
+
   constructor(private route: ActivatedRoute, public storeService: StoreService){
   }
 
@@ -28,7 +31,11 @@ export class ClientComponent {
     this.storeId = this.route.snapshot.paramMap.get('id');
     this.storeService.getStore(this.storeId).subscribe(response => {
       if(response.code == 200) {
-        this.content = response.payload
+        this.content = response.payload;
+        if(this.favIcon && this.titlePage) {
+          this.favIcon.href = this.content.logo.url;
+          this.titlePage.textContent = this.content.title
+        }
       }
       this.displayLoader = false;
     },
