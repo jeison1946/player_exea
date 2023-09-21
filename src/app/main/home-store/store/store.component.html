@@ -18,7 +18,7 @@
       </div>
       <div [ngSwitch]="selectedComponent.id" class="container-item-list">
         <div *ngSwitchCase="'request_song'" class="animate-switch">
-          <app-search-songs (listSong)="listSongByTitle($event)"></app-search-songs>
+          <app-search-songs (listSong)="listSongByTitle($event)" [pos]="pointOfSale"></app-search-songs>
           <div *ngIf="!searchSongs">
             <div class="item-list" [style.background-color]="content.client.color_primario" *ngFor="let item of content.songs">
               <img [src]="item.song.art" width="60" height="60">

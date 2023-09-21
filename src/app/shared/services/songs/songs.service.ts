@@ -48,8 +48,12 @@ export class SongsService {
     return this.httpClient.get<any>(url);
   }
 
-  songByTitle(title: string) {
-    let url = `${this.urlBase}/player/song?title=${title}`;
+  songByTitle(title: string, pos:number|boolean) {
+    let posQuery = '';
+    if(pos) {
+      posQuery = `&idpos=${pos}`
+    }
+    let url = `${this.urlBase}/player/song?title=${title}${posQuery}`;
     return this.httpClient.get<any>(url);
   }
 }
