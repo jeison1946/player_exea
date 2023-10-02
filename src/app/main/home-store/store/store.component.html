@@ -13,7 +13,7 @@
     </div>
     <ngb-alert *ngIf="alerts" [type]="alerts.type" (closed)="close()" class="alert-login">{{ alerts.message }}</ngb-alert>
     <div class="widget-music" [style.background-image]="'url(' + content.client.imagen_de_fondo.url + ')'">
-      <div class="vertical">
+      <div class="container-menu-widget">
         <app-options-menu [listItems]="navItems" (itemSelect)="loadComponent($event)" [backgroudColor]="content.client.color_primario"></app-options-menu>
       </div>
       <div [ngSwitch]="selectedComponent.id" class="container-item-list">
