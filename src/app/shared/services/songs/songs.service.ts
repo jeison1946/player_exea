@@ -28,7 +28,7 @@ export class SongsService {
     }
     const fromObject: any = {
         "title": data.title,
-        "author": data.albumartist,
+        "author": data.albumartist ?? data.composer,
         "song_id": data.self.id,
         "pos_id": pos,
         "rule_id": rule
