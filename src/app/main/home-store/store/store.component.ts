@@ -23,6 +23,9 @@ export class StoreComponent {
 
   loaderSong:boolean = false;
 
+  favIcon: HTMLLinkElement | null = document.querySelector('#favIcon');
+  titlePage: HTMLLinkElement | null = document.querySelector('#titlePage');
+
   public navItems: any[] = [
     {title: 'Solicita una canción', id: 'request_song'},
     {title: 'En cola', id: 'in_cola'},
@@ -47,7 +50,12 @@ export class StoreComponent {
     this.pointOfSale = this.route.snapshot.paramMap.get('id');
     this.storeService.getPointOfsale(this.pointOfSale).subscribe(response => {
       if(response.code == 200) {
-        this.content = response.payload
+        this.content = response.payload;
+        if(this.favIcon && this.titlePage) {
+          this.favIcon.href = this.content.client.logo.url;
+          this.titlePage.textContent = this.content.client.nombre_emisora
+        }
+        
       }
       this.displayLoader = false;
     },

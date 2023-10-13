@@ -13,12 +13,12 @@
     </div>
     <ngb-alert *ngIf="alerts" [type]="alerts.type" (closed)="close()" class="alert-login">{{ alerts.message }}</ngb-alert>
     <div class="widget-music" [style.background-image]="'url(' + content.client.imagen_de_fondo.url + ')'">
-      <div class="vertical">
+      <div class="container-menu-widget">
         <app-options-menu [listItems]="navItems" (itemSelect)="loadComponent($event)" [backgroudColor]="content.client.color_primario"></app-options-menu>
       </div>
       <div [ngSwitch]="selectedComponent.id" class="container-item-list">
         <div *ngSwitchCase="'request_song'" class="animate-switch">
-          <app-search-songs (listSong)="listSongByTitle($event)"></app-search-songs>
+          <app-search-songs (listSong)="listSongByTitle($event)" [pos]="pointOfSale"></app-search-songs>
           <div *ngIf="!searchSongs">
             <div class="item-list" [style.background-color]="content.client.color_primario" *ngFor="let item of content.songs">
               <img [src]="item.song.art" width="60" height="60">
