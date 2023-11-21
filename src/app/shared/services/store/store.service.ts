@@ -28,11 +28,10 @@ export class StoreService {
       'Content-Type':'application/json'
     }
     const fromObject: any = {
-        "title": data.name,
+        "title": data.title,
         "author": data.artist,
-        "song_id": data.self.id,
+        "song_id": data.id,
         "pos_id": pointOfsale,
-        "url_imagen": data.art,
       }
     let url = `${this.urlBase}/song/request`;
     return this.httpClient.post<any>(url, JSON.stringify(fromObject), {headers:headers});
