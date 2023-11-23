@@ -29,7 +29,7 @@ export class SearchSongsComponent {
   eventText(event:any) {
     const input = <HTMLInputElement>document.getElementById("inputext");
     const text:any = input.value;
-    if(text && text.length >= 4) {
+    if(text) {
       this.loader = true;
         this.songService.songByTitle(text, this.pos).subscribe(response => {
           if(response.code == 200) {
