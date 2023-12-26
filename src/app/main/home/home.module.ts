@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { LoginGuard } from 'src/app/shared/guards/login.guard';
 import { MatIconModule } from '@angular/material/icon';
+import { WithoutInternetComponent } from 'src/app/shared/components/without-internet/without-internet.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -20,7 +22,9 @@ import { MatIconModule } from '@angular/material/icon';
         canActivate: [LoginGuard],
       },
     ]),
-    MatIconModule
+    MatIconModule,
+    MatDialogModule,
+    WithoutInternetComponent
   ]
 })
 export class HomeModule { }

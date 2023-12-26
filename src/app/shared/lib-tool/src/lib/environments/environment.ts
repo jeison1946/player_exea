@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://emisoras.local.com/api/v1'
+  apiUrl: 'https://dev-epa.us.seedcloud.co/api/v1'
 };

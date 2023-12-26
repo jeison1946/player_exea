@@ -1,0 +1,21 @@
+.card-withoutinternt{
+  .btn-info{
+    color: white;
+  }
+
+  .whatsapp{
+    display: flex;
+    align-items: center;
+
+    .btn {
+      margin-right: 10px;
+      display: flex;
+    }
+  }
+
+  .reload-cotainer .btn{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+}

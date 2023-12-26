@@ -1,7 +1,16 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SongsService } from 'src/app/shared/services/songs/songs.service';
-import { UserloginService } from 'src/app/shared/services/user/userlogin.service';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
+import { WithoutInternetComponent } from 'src/app/shared/components/without-internet/without-internet.component';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +34,10 @@ export class HomeComponent implements OnInit{
 
   rule: any = false
 
-  constructor(public songService: SongsService, private router: Router, private userService: UserloginService) {
+  constructor(
+    public songService: SongsService, 
+    private router: Router, 
+    public dialog: MatDialog) {
   }
 
 
@@ -78,9 +90,7 @@ export class HomeComponent implements OnInit{
       }
     },
     err => {
-      if(err.status == 500) {
-        this.exitUser();
-      }
+      this.openDialog();
     });
   }
 
@@ -99,6 +109,15 @@ export class HomeComponent implements OnInit{
     this.router.navigateByUrl('/login');
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(WithoutInternetComponent);
+    dialogRef.componentInstance.pos = this.currentUser.punto_de_venta
+    dialogRef.afterClosed().subscribe(async result => {
+      await this.router.navigateByUrl('.', { skipLocationChange: true });
+      return this.router.navigateByUrl('/');
+    });
+  }
+
   getSongNext() {
     this.displayLoader = true;
     this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
@@ -110,9 +129,7 @@ export class HomeComponent implements OnInit{
       }
     },
     err => {
-      if(err.status == 500) {
-        this.exitUser();
-      }
+      this.openDialog();
     });
   }
 

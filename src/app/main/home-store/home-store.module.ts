@@ -8,8 +8,6 @@ import { StoreComponent } from './store/store.component';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { RequestSongsComponent } from 'src/app/shared/components/request-songs/request-songs.component';
 import { OptionsMenuComponent } from 'src/app/shared/components/options-menu/options-menu.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 import { SearchSongsComponent } from 'src/app/shared/components/search-songs/search-songs.component';
 
 
