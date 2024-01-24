@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserloginService } from 'src/app/shared/services/user/userlogin.service';
+import { UserloginService } from '../../shared/services/user/userlogin.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +9,7 @@ import { UserloginService } from 'src/app/shared/services/user/userlogin.service
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  public form: FormGroup;  
+  public form: FormGroup;
   isNextDisabled=true
 
   passwordVisible: boolean = false;
@@ -42,7 +42,7 @@ export class LoginComponent {
       this.userLogin.getCustomerByIdPoint(response.payload.user_data.punto_de_venta, response.payload.token).subscribe(res => {
         this.setSessionLogin(response.payload, res.payload);
       })
-     
+
     },
     error => {
       this.alerts = {
@@ -61,13 +61,13 @@ export class LoginComponent {
     localStorage.setItem("token-session", btoa(user.token));
     localStorage.setItem("user-session", btoa(JSON.stringify(user.user_data)));
     localStorage.setItem("point-of-sale", btoa(JSON.stringify(point_of_sale)));
-    this.router.navigateByUrl('/'); 
+    this.router.navigateByUrl('/');
   }
 
   close() {
     this.alerts = {};
   }
-  
+
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
@@ -76,7 +76,7 @@ export class LoginComponent {
     this.displayLoader = true;
     this.userLogin.getInfoPage().subscribe(response => {
       if(response.payload.url_fondo && response.payload.color) {
-        
+
         this.infoPage = {
           fondo: response.payload.url_fondo,
           color: response.payload.color

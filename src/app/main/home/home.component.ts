@@ -1,21 +1,23 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { SongsService } from 'src/app/shared/services/songs/songs.service';
+import { SongsService } from '../../shared/services/songs/songs.service';
 import {
   MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-  MatDialogTitle,
-  MatDialogContent,
-  MatDialogActions,
-  MatDialogClose,
 } from '@angular/material/dialog';
-import { WithoutInternetComponent } from 'src/app/shared/components/without-internet/without-internet.component';
+import { WithoutInternetComponent } from '../../shared/components/without-internet/without-internet.component';
+import { ConnectionService } from 'ng-connection-service';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatIconModule
+  ],
 })
 export class HomeComponent implements OnInit{
   public nextSong:any = {};
@@ -34,17 +36,27 @@ export class HomeComponent implements OnInit{
 
   rule: any = false
 
+  accessConection: boolean = false;
+
   constructor(
-    public songService: SongsService, 
-    private router: Router, 
-    public dialog: MatDialog) {
+    public songService: SongsService,
+    private router: Router,
+    public dialog: MatDialog,
+    private connectionService:ConnectionService
+    ) {
   }
 
 
   ngOnInit() {
-    this.currentUser = this.getLocalStorage('user-session', true);
-    this.currentCustomer = this.getLocalStorage('point-of-sale', true);
-    this.getSongNext();
+    this.connectionService.monitor().subscribe(async (isConnected:any) => {
+      if(isConnected.hasNetworkConnection) {
+        this.accessConection = true;
+        this.currentUser = this.getLocalStorage('user-session', true);
+        this.currentCustomer = this.getLocalStorage('point-of-sale', true);
+        this.getSongNext();
+
+      }
+    });
   }
 
   updateTime(time:any) {

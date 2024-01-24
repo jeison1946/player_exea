@@ -2,17 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { LoginGuard } from 'src/app/shared/guards/login.guard';
-import { MatIconModule } from '@angular/material/icon';
-import { WithoutInternetComponent } from 'src/app/shared/components/without-internet/without-internet.component';
+import { LoginGuard } from '../../shared/guards/login.guard';
+import { WithoutInternetComponent } from '../../shared/components/without-internet/without-internet.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
 
 
 @NgModule({
-  declarations: [
-    HomeComponent
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule.forChild([
@@ -22,7 +19,6 @@ import { MatDialogModule } from '@angular/material/dialog';
         canActivate: [LoginGuard],
       },
     ]),
-    MatIconModule,
     MatDialogModule,
     WithoutInternetComponent
   ]

@@ -11,13 +11,14 @@
     "noImplicitReturns": true,
     "paths": {
       "@media/environments": [
-        "src/app/shared/lib-tool/src/lib/environments/environment"
+        "./src/app/shared/lib-tool/src/lib/environments/environment"
       ]
     },
     "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,

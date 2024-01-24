@@ -1,5 +1,5 @@
 
-<div class="page-home">
+<div class="page-home" *ngIf="accessConection">
   <div class="main-content">
     <div class="menu-navigation" [style.background-color]="currentCustomer.color_primario">
       <div class="info-site">
@@ -34,8 +34,8 @@
             <p class="text-cort">{{nextSong.artist}}</p>
           </div>
         </div>
-        
-        
+
+
         <div class="item-row">
           <mat-icon class="equalizer">equalizer</mat-icon>
           <div class="time">{{ currentTime }}</div>
@@ -43,6 +43,9 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="!accessConection">
+Hola
 </div>
 
 

@@ -15,11 +15,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -27,7 +27,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.scss"
@@ -35,7 +36,7 @@
             "scripts": []
           },
           "configurations": {
-            "prod": {
+            "production": {
               "budgets": [
                 {
                   "type": "initial",
@@ -51,36 +52,13 @@
               "outputHashing": "all",
               "fileReplacements": [
                 {
-                  "replace": "src/app/shared/lib-tool/src/lib/environments/environment.ts",
-                  "with": "src/app/shared/lib-tool/src/lib/environments/environment.prod.ts"
-                }
-               ]
-            },
-            "dev": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
-                }
-              ],
-              "outputHashing": "all",
-              "fileReplacements": [
-                {
-                  "replace": "src/app/shared/lib-tool/src/lib/environments/environment.ts",
-                  "with": "src/app/shared/lib-tool/src/lib/environments/environment.dev.ts"
+                  "replace": "./src/app/shared/lib-tool/src/lib/environments/environment.ts",
+                  "with": "./src/app/shared/lib-tool/src/lib/environments/environment.dev.ts"
                 }
                ]
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -92,10 +70,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "emisora:build:production"
+              "buildTarget": "player_exea_v2:build:production"
             },
             "development": {
-              "browserTarget": "emisora:build:development"
+              "buildTarget": "player_exea_v2:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -103,7 +81,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "emisora:build"
+            "buildTarget": "player_exea_v2:build"
           }
         },
         "test": {
@@ -117,7 +95,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.scss"
@@ -127,8 +106,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": "864060b4-20f8-4ed4-a92b-509e9759f6a2"
   }
 }
