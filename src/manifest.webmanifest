@@ -1,6 +1,6 @@
 {
-  "name": "player_exea_v2",
-  "short_name": "player_exea_v2",
+  "name": "player_exea",
+  "short_name": "player_exea",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

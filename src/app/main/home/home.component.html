@@ -1,6 +1,6 @@
 
-<div class="page-home" *ngIf="accessConection">
-  <div class="main-content">
+<div class="page-home">
+  <div class="main-content" *ngIf="accessConection">
     <div class="menu-navigation" [style.background-color]="currentCustomer.color_primario">
       <div class="info-site">
         <div class="logo">
@@ -43,10 +43,7 @@
       </div>
     </div>
   </div>
+  <div class="main-content" *ngIf="!accessConection">
+    Sin acceso a internet
+    </div>
 </div>
-<div *ngIf="!accessConection">
-Hola prueba sin internet
-</div>
-
-
-
