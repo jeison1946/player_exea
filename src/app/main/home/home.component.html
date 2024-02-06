@@ -2,14 +2,6 @@
 <div class="page-home">
   <div class="main-content" *ngIf="accessConection">
     <div class="menu-navigation" [style.background-color]="currentCustomer.color_primario">
-      <div class="info-site">
-        <div class="logo">
-          <img *ngIf="currentCustomer" [src]="currentCustomer.logo.url" [alt]="currentCustomer.title" width="60">
-        </div>
-        <div class="title">
-          <h1>{{currentCustomer.title}}</h1>
-        </div>
-      </div>
       <div class="user-actions">
         <p>{{currentUser.nombre}} {{currentUser.apellido}}</p>
         <mat-icon class="icon-exit" (click)="exitUser()">exit_to_app</mat-icon>
@@ -24,22 +16,70 @@
     <div *ngIf="nextSong.url" class="widget-music" [class]="displayLoader ? 'hidden' : ''" [style.background-image]="'url(' + currentCustomer.imagen_de_fondo.url + ')'">
       <audio controls id="player" (timeupdate)="updateTime($event)" hidden (ended)="finishSong()">
       </audio>
-      <div class="container-musis" [style.background-color]="currentCustomer.color_primario">
-        <div class="item-row">
-          <mat-icon *ngIf="!isListen"(click)="onPlay()">play_circle_outline</mat-icon>
-          <mat-icon *ngIf="isListen"(click)="onPuase()">pause</mat-icon>
-          <img [src]="nextSong.art" width="60" height="60">
-          <div class="info-text">
-            <p><strong>{{nextSong.title}}</strong></p>
-            <p class="text-cort">{{nextSong.artist}}</p>
+        <div class="container-musis" [style.border]="'10px solid '+ currentCustomer.color_primario">
+          <div class="container-rows">
+            <div class="item-row d7">
+              <div class="info-text" [style.border]="'5px solid '+ currentCustomer.color_primario">
+                <div class="song-info-detail" [style.border-bottom]="'5px solid '+ currentCustomer.color_primario">
+                  <mat-icon class="icon-info">record_voice_over</mat-icon> 
+                  <p class="text-relative text-cort">{{nextSong.artist}}</p>
+                </div>
+                <div class="song-info-detail">
+                  <mat-icon class="icon-info">audiotrack</mat-icon> 
+                  <p class="text-relative">{{nextSong.title}}</p>
+                </div>
+              </div>
+              
+              <div class="info-actions">
+                <div class="status-container">
+                  <mat-icon 
+                  class="action-icon" 
+                  [style.border]="'5px solid '+ currentCustomer.color_primario" 
+                  [style.color]="currentCustomer.color_secundario" 
+                  (click)="onPlay()">
+                    play_arrow
+                  </mat-icon>
+                  <mat-icon  
+                  class="action-icon" 
+                  [style.border]="'5px solid '+ currentCustomer.color_primario" 
+                  [style.color]="currentCustomer.color_secundario" 
+                  (click)="onPuase()"
+                  >
+                    stop
+                  </mat-icon>
+                </div>
+                
+                <div class="container-volume">
+                  <mat-icon 
+                  class="icon-volume" 
+                  [style.color]="currentCustomer.color_secundario"
+                  (click)="actionVolume(false)"
+                  >remove</mat-icon>
+                  <mat-slider
+                  class="volume-bar" 
+                  color="primary"
+                  thumbLabel
+                  [min]="0"
+                  [max]="100"
+                  (input)="onVolumeChange($event)"
+                  >
+                    <input matSliderThumb value="{{volume}}">
+                  </mat-slider>
+                  <mat-icon
+                   class="icon-volume"
+                   (click)="actionVolume(true)"
+                   [style.color]="currentCustomer.color_secundario"
+                   >add</mat-icon>
+                </div>
+              </div>
+            </div>
+    
+    
+            <div class="item-row d3">
+              <img class="imagen" *ngIf="currentCustomer.imagen_player" [src]="currentCustomer.imagen_player.url" [alt]="currentCustomer.title" width="400">
+            </div>
           </div>
-        </div>
-
-
-        <div class="item-row">
-          <mat-icon class="equalizer">equalizer</mat-icon>
-          <div class="time">{{ currentTime }}</div>
-        </div>
+        
       </div>
     </div>
   </div>

@@ -7,7 +7,9 @@ import {
 import { WithoutInternetComponent } from '../../shared/components/without-internet/without-internet.component';
 import { ConnectionService } from 'ng-connection-service';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSliderModule } from '@angular/material/slider';
 import { CommonModule } from '@angular/common';
+import { MaterialCssVarsService } from 'angular-material-css-vars';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +18,8 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [
     CommonModule,
-    MatIconModule
+    MatIconModule,
+    MatSliderModule
   ],
 })
 export class HomeComponent implements OnInit{
@@ -38,11 +41,14 @@ export class HomeComponent implements OnInit{
 
   accessConection: boolean = false;
 
+  volume: number = 90;
+
   constructor(
     public songService: SongsService,
     private router: Router,
     public dialog: MatDialog,
-    private connectionService:ConnectionService
+    private connectionService:ConnectionService,
+    public materialCssVarsService: MaterialCssVarsService
     ) {
   }
 
@@ -53,6 +59,8 @@ export class HomeComponent implements OnInit{
         this.accessConection = true;
         this.currentUser = this.getLocalStorage('user-session', true);
         this.currentCustomer = this.getLocalStorage('point-of-sale', true);
+        this.materialCssVarsService.setPrimaryColor(this.currentCustomer.color_primario);
+        this.materialCssVarsService.setAccentColor('#3f51b5')
         this.getSongNext();
 
       }
@@ -88,6 +96,28 @@ export class HomeComponent implements OnInit{
     const player = <HTMLAudioElement>document.getElementById("player");
     player.pause();
     this.isListen = false;
+  }
+
+  onVolumeChange(e:any) {
+    this.volume = e.srcElement.value;
+    const player = <HTMLAudioElement>document.getElementById("player");
+    player.volume = this.volume / 100;
+  }
+
+  actionVolume(action:boolean) {
+    const player = <HTMLAudioElement>document.getElementById("player");
+    let volume = this.volume;
+    if(action) {
+      volume += 5;
+    }
+    else{
+      volume -= 5;
+    }
+    if(volume >= 0 && volume <= 100){
+      player.volume = volume / 100;
+      this.volume = volume;
+    }
+    
   }
 
   finishSong() {

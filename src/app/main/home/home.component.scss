@@ -26,36 +26,97 @@
 }
 
 .container-musis{
-  background-color: #3C929F;
-  color: #ffffff;
-  display: flex;
+  max-width: 990px;
   width: 100%;
-  margin: 0 2rem ;
-  border-radius: 10px;
-  overflow: hidden;
-  align-items: center;
-  padding: 1rem 2rem;
-  justify-content: space-between;
+  margin: auto;
+  opacity: 0.8;
+  position: relative;
 
-  img{
-    margin: 0 1rem;
-  }
-
-  .item-row{
+  .container-rows{
+    background-color: #ffffff;
+    padding: 1rem 2rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 
-  .text-cort{
-    font-size: 12px;
+  .icon-info{
+    font-size: 20px;
   }
 
-  p{
+  .song-info-detail{
+    display: flex;
+    align-items: center;
     margin: 0;
+    padding: 5px 1rem;
+    font-size: 30px;
+    font-weight: bold;
   }
 
-  .equalizer{
-    margin-right: 5px;
+  .info-text{
+    border-radius: 10px;
+    margin-bottom: 20px;
+    p {
+      display: block;
+      margin: 0 6px;
+    }
+  }
+
+  .d7{
+    width: 65%;
+  }
+
+  .d3{
+    width: 30%;
+
+    .imagen{
+      display: block;
+      width: 100%;
+    }
+  }
+
+  .action-icon{
+    font-size: 50px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  .info-actions{
+    display: flex;
+
+    .status-container{
+      width: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container-volume{
+      width: 70%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .volume-bar{
+        width: 75%;
+         
+        input {
+          width: 100% !important;
+        }
+        
+      }
+
+      .icon-volume{
+        font-size: 40px;
+        width: 40px;
+        height: 40px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
   }
 }
 
@@ -64,12 +125,14 @@
 }
 
 .menu-navigation{
-  background-color: #3C929F;
-  color: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  position: absolute;
+  right: 0;
+  border-radius: 10%;
+  opacity: 0.8;
 
   .info-site{
     display: flex;

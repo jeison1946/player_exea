@@ -20,7 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
       },
     ]),
     MatDialogModule,
-    WithoutInternetComponent
+    WithoutInternetComponent,
   ]
 })
 export class HomeModule { }
