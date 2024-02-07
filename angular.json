@@ -53,7 +53,7 @@
               "fileReplacements": [
                 {
                   "replace": "./src/app/shared/lib-tool/src/lib/environments/environment.ts",
-                  "with": "./src/app/shared/lib-tool/src/lib/environments/environment.dev.ts"
+                  "with": "./src/app/shared/lib-tool/src/lib/environments/environment.prod.ts"
                 }
                ]
             },
