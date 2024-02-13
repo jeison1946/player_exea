@@ -1,8 +1,11 @@
 
 <div class="page-home">
   <div class="main-content" *ngIf="accessConection">
-    <div class="menu-navigation" [style.background-color]="currentCustomer.color_primario">
-      <div class="user-actions">
+    <div class="menu-navigation">
+      <div class="gratulations">
+        <img src="../../../assets/brand-casting.png"> 
+      </div>
+      <div class="user-actions" [style.background-color]="currentCustomer.color_primario">
         <p>{{currentUser.nombre}} {{currentUser.apellido}}</p>
         <mat-icon class="icon-exit" (click)="exitUser()">exit_to_app</mat-icon>
       </div>
@@ -34,14 +37,14 @@
                 <div class="status-container">
                   <mat-icon 
                   class="action-icon" 
-                  [style.border]="'5px solid '+ currentCustomer.color_primario" 
+                  [style.border]="'3px solid '+ currentCustomer.color_primario" 
                   [style.color]="currentCustomer.color_secundario" 
                   (click)="onPlay()">
                     play_arrow
                   </mat-icon>
                   <mat-icon  
                   class="action-icon" 
-                  [style.border]="'5px solid '+ currentCustomer.color_primario" 
+                  [style.border]="'3px solid '+ currentCustomer.color_primario" 
                   [style.color]="currentCustomer.color_secundario" 
                   (click)="onPuase()"
                   >

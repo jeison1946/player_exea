@@ -10,6 +10,10 @@
   display: flex;
   align-items: center;
 
+  @media only screen and (max-width: 600px) {
+    flex-wrap: wrap;
+  }
+
   .content-form{
     width: 50%;
 
@@ -18,6 +22,10 @@
       text-align: left;
       max-width: 450px;
       margin: auto;
+    }
+
+    @media only screen and (max-width: 600px) {
+      width: 100%;
     }
   }
 
@@ -28,6 +36,10 @@
     background-image: url(../../../assets/login_bg.png);
     background-size: cover;
     background-position: center;
+
+    @media only screen and (max-width: 600px) {
+      display: none;
+    }
   }
 
   label{
