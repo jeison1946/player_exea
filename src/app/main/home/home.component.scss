@@ -19,6 +19,10 @@
   background-position-x: right;
   background-position-y: top;
 
+  @media only screen and (max-width: 600px) {
+    padding: 1rem;
+  }
+
   &.error p {
     display: block;
     color: #ffffff;
@@ -31,10 +35,6 @@
   margin: auto;
   opacity: 0.8;
   position: relative;
-
-  @media only screen and (max-width: 600px) {
-    margin: 1rem;
-  }
 
   .container-rows{
     background-color: #ffffff;
@@ -180,7 +180,6 @@
   .user-actions{
     padding: 10px;
     border-radius: 10%;
-    opacity: 0.8;
     display: flex;
     align-items: center;
     position: absolute;

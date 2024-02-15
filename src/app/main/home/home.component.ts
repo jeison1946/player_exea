@@ -1,15 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SongsService } from '../../shared/services/songs/songs.service';
-import {
-  MatDialog,
-} from '@angular/material/dialog';
+import {MatDialog} from '@angular/material/dialog';
 import { WithoutInternetComponent } from '../../shared/components/without-internet/without-internet.component';
 import { ConnectionService } from 'ng-connection-service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import { CommonModule } from '@angular/common';
 import { MaterialCssVarsService } from 'angular-material-css-vars';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-home',
@@ -43,13 +42,19 @@ export class HomeComponent implements OnInit{
 
   volume: number = 90;
 
+  mobile: boolean;
+
+  titlePage: HTMLLinkElement | null = document.querySelector('#titlePage');
+
   constructor(
     public songService: SongsService,
     private router: Router,
     public dialog: MatDialog,
     private connectionService:ConnectionService,
-    public materialCssVarsService: MaterialCssVarsService
+    public materialCssVarsService: MaterialCssVarsService,
+    private deviceDetector: DeviceDetectorService
     ) {
+      this.mobile = this.deviceDetector.isMobile();
   }
 
 
@@ -59,10 +64,10 @@ export class HomeComponent implements OnInit{
         this.accessConection = true;
         this.currentUser = this.getLocalStorage('user-session', true);
         this.currentCustomer = this.getLocalStorage('point-of-sale', true);
+        this.titlePage ? this.titlePage.textContent = "Brand Casting | " + this.currentCustomer.nombre_emisora : false;
         this.materialCssVarsService.setPrimaryColor(this.currentCustomer.color_primario);
         this.materialCssVarsService.setAccentColor('#3f51b5')
         this.getSongNext();
-
       }
     });
   }

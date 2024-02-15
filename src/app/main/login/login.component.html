@@ -3,27 +3,27 @@
     <div class="main-loader pagecomplete"*ngIf="displayLoader">
       <div class="spinner-border text-info " role="status"></div>
     </div>
-    <div class="content-form">
-      <ngb-alert *ngIf="alerts" [type]="alerts.type" (closed)="close()" class="alert-login">{{ alerts.message }}</ngb-alert>
-      <h3 class="h3 mb-3 font-weight-normal">Inicio de Sesión</h3>
-      <form class="form-signin" novalidate [formGroup]="form" (ngSubmit)="setDataLogin()">
-        <div class="form-field user">
-          <label for="inputEmail" class="sr-only">Usuario</label>
-          <input type="email" id="inputEmail" class="form-control" required autofocus formControlName="email">
-        </div>
-        <div class="form-field password">
-          <label for="inputPassword" class="sr-only">Contraseña</label>
-          <input [type]="passwordVisible ? 'text' : 'password'" id="inputPassword" class="form-control" required formControlName="password">
-          <mat-icon class="show-password" (click)="togglePasswordVisibility()">visibility</mat-icon>
-        </div>
-        <div class="button-submit">
-          <button class="btn-submit" type="submit" [disabled]='form.invalid || isNextDisabled' [style.background-color]="infoPage.color">Ingresar</button>
-        </div>
-      </form>
+    <div class="content-form" [style.background-image]="mobile ? 'url(' + infoPage.fondo + ')' : 'url(' + infoPage.fondo + ')'">
+      <div class="form-signin">
+        <div class="image-icon-background"><img src="../../../assets/login.png"> </div>
+        
+        <ngb-alert *ngIf="alerts" [type]="alerts.type" (closed)="close()" class="alert-login">{{ alerts.message }}</ngb-alert>
+        <form  novalidate [formGroup]="form" (ngSubmit)="setDataLogin()">
+          <div class="form-field user">
+            <mat-icon class="icon-field">account_circle</mat-icon>
+            <input type="email" id="inputEmail" class="form-control" required autofocus formControlName="email">
+          </div>
+          <div class="form-field password">
+            <mat-icon class="icon-field">https</mat-icon>
+            <input [type]="passwordVisible ? 'text' : 'password'" id="inputPassword" class="form-control" required formControlName="password">
+            <mat-icon class="show-password" (click)="togglePasswordVisibility()">visibility</mat-icon>
+          </div>
+          <div class="button-submit">
+            <button class="btn-submit" type="submit" [disabled]='form.invalid || isNextDisabled' [style.background-color]="infoPage.color">INGRESAR</button>
+          </div>
+        </form>
+      </div>
+      
     </div>
-    
-    <div *ngIf="infoPage" class="image-found" [style.background-image]="'url(' + infoPage.fondo + ')'">
-    </div>
-    <div *ngIf="!infoPage" class="image-found"></div>
   </div>
 </div>

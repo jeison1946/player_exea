@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserloginService } from '../../shared/services/user/userlogin.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,9 @@ export class LoginComponent {
 
   displayLoader:boolean = false;
 
-  constructor(private _formBuilder: FormBuilder, public userLogin: UserloginService, private router: Router) {
+  mobile: boolean;
+
+  constructor(private _formBuilder: FormBuilder, public userLogin: UserloginService, private router: Router, private deviceDetector: DeviceDetectorService) {
     this.form = this._formBuilder.group({
       email: ['', Validators.compose([
         Validators.required
@@ -34,6 +37,7 @@ export class LoginComponent {
       this.isNextDisabled = !this.form.valid;
     });
     this.getInfoPage();
+    this.mobile = this.deviceDetector.isMobile();
   }
 
   setDataLogin(): void {

@@ -6,7 +6,7 @@
         <img src="../../../assets/brand-casting.png"> 
       </div>
       <div class="user-actions" [style.background-color]="currentCustomer.color_primario">
-        <p>{{currentUser.nombre}} {{currentUser.apellido}}</p>
+        <p>Salir</p>
         <mat-icon class="icon-exit" (click)="exitUser()">exit_to_app</mat-icon>
       </div>
     </div>
@@ -16,7 +16,12 @@
     <div *ngIf="nextSong.error" class="widget-music error" [class]="displayLoader ? 'hidden' : ''">
       <p>Hubo un error al cargar el audio, por favor validar el automatizador (se pasará la siguiente cación)</p>
     </div>
-    <div *ngIf="nextSong.url" class="widget-music" [class]="displayLoader ? 'hidden' : ''" [style.background-image]="'url(' + currentCustomer.imagen_de_fondo.url + ')'">
+    <div 
+    *ngIf="nextSong.url" 
+    class="widget-music" 
+    [class]="displayLoader ? 'hidden' : ''" 
+    [style.background-image]="mobile ? 'url(' + currentCustomer.fondo_mobile.url + ')' : 'url(' + currentCustomer.imagen_de_fondo.url + ')'"
+    >
       <audio controls id="player" (timeupdate)="updateTime($event)" hidden (ended)="finishSong()">
       </audio>
         <div class="container-musis" [style.border]="'10px solid '+ currentCustomer.color_primario">
