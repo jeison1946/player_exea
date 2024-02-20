@@ -121,7 +121,7 @@
     display: flex;
 
     .status-container{
-      width: 30%;
+      width: 15%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -149,6 +149,18 @@
         font-weight: bold;
         cursor: pointer;
       }
+    }
+  }
+
+  .info-timer{
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p{
+      display: block;
+      margin: 0;
     }
   }
 }

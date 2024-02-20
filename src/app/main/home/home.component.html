@@ -41,13 +41,15 @@
               <div class="info-actions">
                 <div class="status-container">
                   <mat-icon 
+                  *ngIf="!isListen"
                   class="action-icon" 
                   [style.border]="'3px solid '+ currentCustomer.color_primario" 
                   [style.color]="currentCustomer.color_secundario" 
                   (click)="onPlay()">
                     play_arrow
                   </mat-icon>
-                  <mat-icon  
+                  <mat-icon 
+                  *ngIf="isListen"
                   class="action-icon" 
                   [style.border]="'3px solid '+ currentCustomer.color_primario" 
                   [style.color]="currentCustomer.color_secundario" 
@@ -71,13 +73,16 @@
                   [max]="100"
                   (input)="onVolumeChange($event)"
                   >
-                    <input matSliderThumb value="{{volume}}">
+                  <input matSliderThumb value="{{volume}}">
                   </mat-slider>
                   <mat-icon
                    class="icon-volume"
                    (click)="actionVolume(true)"
                    [style.color]="currentCustomer.color_secundario"
                    >add</mat-icon>
+                </div>
+                <div class="info-timer">
+                  <p>{{currentTime}}</p>
                 </div>
               </div>
             </div>
