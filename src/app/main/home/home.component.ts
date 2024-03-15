@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SongsService } from '../../shared/services/songs/songs.service';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { WithoutInternetComponent } from '../../shared/components/without-internet/without-internet.component';
 import { ConnectionService } from 'ng-connection-service';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,6 +9,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { CommonModule } from '@angular/common';
 import { MaterialCssVarsService } from 'angular-material-css-vars';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   imports: [
     CommonModule,
     MatIconModule,
-    MatSliderModule
+    MatSliderModule,
   ],
 })
 export class HomeComponent implements OnInit{
@@ -52,7 +53,8 @@ export class HomeComponent implements OnInit{
     public dialog: MatDialog,
     private connectionService:ConnectionService,
     public materialCssVarsService: MaterialCssVarsService,
-    private deviceDetector: DeviceDetectorService
+    private deviceDetector: DeviceDetectorService,
+    private socket: Socket
     ) {
       this.mobile = this.deviceDetector.isMobile();
   }
@@ -89,6 +91,7 @@ export class HomeComponent implements OnInit{
     player.setAttribute('src', this.nextSong.url);
     player.play();
     this.isListen = true;
+    this.webSocketStatus(true);
     this.songService.logSong(
       this.nextSong,
       this.currentUser.punto_de_venta,
@@ -101,6 +104,7 @@ export class HomeComponent implements OnInit{
     const player = <HTMLAudioElement>document.getElementById("player");
     player.pause();
     this.isListen = false;
+    this.webSocketStatus(false);
   }
 
   onVolumeChange(e:any) {
@@ -122,7 +126,7 @@ export class HomeComponent implements OnInit{
       player.volume = volume / 100;
       this.volume = volume;
     }
-    
+
   }
 
   finishSong() {
@@ -243,5 +247,9 @@ export class HomeComponent implements OnInit{
     );
 
     return dateObject.getTime();
+  }
+
+  webSocketStatus(status:boolean) {
+    this.socket.emit('checkStore', {storeId:this.currentUser.punto_de_venta, status: status});
   }
 }

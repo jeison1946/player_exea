@@ -5,6 +5,8 @@ import { HomeComponent } from './home.component';
 import { LoginGuard } from '../../shared/guards/login.guard';
 import { WithoutInternetComponent } from '../../shared/components/without-internet/without-internet.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SocketIoModule } from 'ngx-socket-io';
+import { environment } from '@media/environments';
 
 
 
@@ -21,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ]),
     MatDialogModule,
     WithoutInternetComponent,
+    SocketIoModule.forRoot({ url: environment.apiNodeWs, options: {} }),
   ]
 })
 export class HomeModule { }
