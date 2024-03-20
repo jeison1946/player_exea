@@ -122,7 +122,7 @@ export class HomeComponent implements OnInit{
       player.volume = volume / 100;
       this.volume = volume;
     }
-    
+
   }
 
   finishSong() {
