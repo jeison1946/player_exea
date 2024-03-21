@@ -8,7 +8,7 @@ import { environment } from '@media/environments';
 export class StoreService {
 
   private urlBase = environment.apiUrl;
-  
+
   constructor(
     private httpClient: HttpClient
   ) { }
@@ -16,6 +16,10 @@ export class StoreService {
   getStore(id: string) {
     let url = `${this.urlBase}/customer/data/${id}`;
     return this.httpClient.get<any>(url);
+  }
+
+  getUrlSong(id: string): string {
+    return `${environment.apiNode}/store/live/${id}`;
   }
 
   getPointOfsale(id: string) {

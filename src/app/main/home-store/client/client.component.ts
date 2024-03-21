@@ -19,6 +19,8 @@ export class ClientComponent {
   favIcon: HTMLLinkElement | null = document.querySelector('#favIcon');
   titlePage: HTMLLinkElement | null = document.querySelector('#titlePage');
 
+  urlLive: string = '';
+
   constructor(private route: ActivatedRoute, public storeService: StoreService){
   }
 
@@ -29,6 +31,7 @@ export class ClientComponent {
   getStore() {
     this.displayLoader = true;
     this.storeId = this.route.snapshot.paramMap.get('id');
+    this.urlLive = this.storeService.getUrlSong(this.storeId);
     this.storeService.getStore(this.storeId).subscribe(response => {
       if(response.code == 200) {
         this.content = response.payload;

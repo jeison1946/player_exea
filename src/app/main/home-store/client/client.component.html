@@ -12,22 +12,8 @@
       </div>
     </div>
     <div class="widget-music" [style.background-image]="'url(' + content.imagen_de_fondo.url + ')'">
-      <div class="container-item-list" *ngIf="content.poins_of_sale">
-        <div class="item-list" [style.background-color]="content.color_primario" *ngFor="let item of content.poins_of_sale">
-          <a class="info-text" [routerLink]="'/store/point_of_sale/' + item.id">
-            {{item.title}}
-          </a>
-          <mat-icon class="icon-add" [routerLink]="'/store/point_of_sale/' + item.id">store</mat-icon>
-        </div> 
-        <!-- <div class="item-list" [style.background-color]="content.color_primario" *ngFor="let item of content.poins_of_sale">
-          <img [src]="item.song.art" width="60" height="60">
-          <div class="info-text">
-            <p><strong>{{item.song.name}}</strong></p>
-            <p class="text-cort">{{item.song.name}}</p>
-          </div>
-          <mat-icon class="icon-add" (click)="addResquestLog(item.song)">note_add</mat-icon>
-        </div> -->
-      </div>
+      <audio controls id="player" [src]="urlLive">
+      </audio>
     </div>
   </div>
   <div *ngIf="content.error && !displayLoader">

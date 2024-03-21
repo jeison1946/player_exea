@@ -19,10 +19,10 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
         path: 'login',
         loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
       },
-      /* {
+      {
         path: 'store',
         loadChildren: () => import('./home-store/home-store.module').then(m => m.HomeStoreModule)
-      }, */
+      },
       {
         path: '**',
         component: PagenotfoundComponent
