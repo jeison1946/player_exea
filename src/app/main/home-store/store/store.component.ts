@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Socket } from 'ngx-socket-io';
 import { StoreService } from 'src/app/shared/services/store/store.service';
 
 @Component({
@@ -55,7 +56,7 @@ export class StoreComponent {
           this.favIcon.href = this.content.client.logo.url;
           this.titlePage.textContent = this.content.client.nombre_emisora
         }
-        
+
       }
       this.displayLoader = false;
     },

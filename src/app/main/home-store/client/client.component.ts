@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Socket } from 'ngx-socket-io';
 import { StoreService } from 'src/app/shared/services/store/store.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class ClientComponent {
 
   urlLive: string = '';
 
-  constructor(private route: ActivatedRoute, public storeService: StoreService){
+  constructor(private route: ActivatedRoute, public storeService: StoreService, private socket: Socket){
   }
 
   ngOnInit(): void {
@@ -41,6 +42,10 @@ export class ClientComponent {
         }
       }
       this.displayLoader = false;
+      this.socket.emit('statusClient', { hello: 'word'});
+      this.socket.on('statusClient', (data: any) => {
+        console.log(data);
+      });
     },
     err => {
       this.displayLoader = false;

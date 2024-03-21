@@ -9,6 +9,8 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { RequestSongsComponent } from 'src/app/shared/components/request-songs/request-songs.component';
 import { OptionsMenuComponent } from 'src/app/shared/components/options-menu/options-menu.component';
 import { SearchSongsComponent } from 'src/app/shared/components/search-songs/search-songs.component';
+import { SocketIoModule } from 'ngx-socket-io';
+import { environment } from '@media/environments';
 
 
 @NgModule({
@@ -18,6 +20,7 @@ import { SearchSongsComponent } from 'src/app/shared/components/search-songs/sea
   ],
   imports: [
     CommonModule,
+    SocketIoModule.forRoot({ url: environment.apiNode, options: {} }),
     RouterModule.forChild([
       {
         path: ':id',
