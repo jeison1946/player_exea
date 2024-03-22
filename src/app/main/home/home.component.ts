@@ -9,6 +9,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { CommonModule } from '@angular/common';
 import { MaterialCssVarsService } from 'angular-material-css-vars';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-home',
@@ -52,7 +53,8 @@ export class HomeComponent implements OnInit{
     public dialog: MatDialog,
     private connectionService:ConnectionService,
     public materialCssVarsService: MaterialCssVarsService,
-    private deviceDetector: DeviceDetectorService
+    private deviceDetector: DeviceDetectorService,
+    private socket: Socket
     ) {
       this.mobile = this.deviceDetector.isMobile();
   }
@@ -95,12 +97,22 @@ export class HomeComponent implements OnInit{
       this.rule
       ).subscribe(response => {
     });
+    this.socket.emit('statusPointofsale', {
+      pos: this.currentUser.punto_de_venta,
+      idClient: this.socket.ioSocket.id,
+      status: true,
+    });
   }
 
   onPuase() {
     const player = <HTMLAudioElement>document.getElementById("player");
     player.pause();
     this.isListen = false;
+    this.socket.emit('statusPointofsale', {
+      pos: this.currentUser.punto_de_venta,
+      idClient: this.socket.ioSocket.id,
+      status: false,
+    });
   }
 
   onVolumeChange(e:any) {
