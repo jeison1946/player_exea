@@ -7,8 +7,8 @@ import { environment } from '@media/environments';
 })
 export class SongsService {
 
-  private urlBase = environment.apiUrl;
-  
+  private environmentVars = environment;
+
   constructor(
     private httpClient: HttpClient
   ) { }
@@ -16,31 +16,35 @@ export class SongsService {
   getNextSong(posId: any) {
     const token = atob(localStorage.getItem('token-session') || '') ?? false;
     const headers = {'X-AUTH-TOKEN': token}
-    let url = `${this.urlBase}/player/next/${posId}`;
+    let url = `${this.environmentVars.apiNode}/rules?pos=${posId}`;
     return this.httpClient.get<any>(url, {headers:headers});
   }
 
-  logSong(data: any, pos:number, rule:any) {
+  logSong(data: any, pos:any) {
     const token = atob(localStorage.getItem('token-session') || '') ?? false;
     const headers = {
       'X-AUTH-TOKEN': token,
       'Content-Type':'application/json'
     }
+    const currentDate = new Date();
+    currentDate.setUTCHours(currentDate.getUTCHours() - 5);
     const fromObject: any = {
-        "title": data.title,
-        "author": data.artist ?? data.composer,
-        "song_id": data.id,
-        "pos_id": pos,
-        "rule_id": rule
-      }
-    let url = `${this.urlBase}/song/history`;
+      "created": currentDate,
+      "title": data.song.title,
+      "author": data.song.artist,
+      "song_id": parseInt(data.song.id),
+      "point_of_sale": parseInt(pos),
+      "rule_id": parseInt(data.ruleId),
+      "name_rule": data.name
+    }
+    let url = `${this.environmentVars.apiNode}/rules`;
     return this.httpClient.post<any>(url, JSON.stringify(fromObject), {headers:headers});
   }
 
   songByRule(id:any){
     const token = atob(localStorage.getItem('token-session') || '') ?? false;
     const headers = {'X-AUTH-TOKEN': token}
-    let url = `${this.urlBase}/player/song/${id}`;
+    let url = `${this.environmentVars.apiUrl}/player/song/${id}`;
     return this.httpClient.get<any>(url, {headers:headers});
   }
 
@@ -53,7 +57,7 @@ export class SongsService {
     if(pos) {
       posQuery = `&idpos=${pos}`
     }
-    let url = `${this.urlBase}/player/song?title=${title}${posQuery}`;
+    let url = `${this.environmentVars.apiUrl}/player/song?title=${title}${posQuery}`;
     return this.httpClient.get<any>(url);
   }
 }

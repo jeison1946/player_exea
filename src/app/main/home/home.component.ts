@@ -23,7 +23,7 @@ import { Socket } from 'ngx-socket-io';
   ],
 })
 export class HomeComponent implements OnInit{
-  public nextSong:any = {};
+  public dataLoad:any = {};
 
   @ViewChild('audioPlayer') audioPlayer: any;
 
@@ -88,13 +88,12 @@ export class HomeComponent implements OnInit{
 
   onPlay(){
     const player = <HTMLAudioElement>document.getElementById("player");
-    player.setAttribute('src', this.nextSong.url);
+    player.setAttribute('src', this.dataLoad.song.url);
     player.play();
     this.isListen = true;
     this.songService.logSong(
-      this.nextSong,
-      this.currentUser.punto_de_venta,
-      this.rule
+      this.dataLoad,
+      this.currentUser.punto_de_venta
       ).subscribe(response => {
     });
     this.socket.emit('statusPointofsale', {
@@ -143,7 +142,7 @@ export class HomeComponent implements OnInit{
       if (response.code == 200) {
         this.displayLoader = false;
         this.rule = response.payload.ruleId;
-        this.nextSong = response.payload.song;
+        this.dataLoad = response.payload;
         this.onPlay();
         this.listenByTime(response.payload.rules_hours);
       }
@@ -181,10 +180,10 @@ export class HomeComponent implements OnInit{
     this.displayLoader = true;
     this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
       if (response.code == 200) {
-        this.rule = response.payload.ruleId;
-        this.nextSong = response.payload.song;
+        this.rule = response.response.ruleId;
+        this.dataLoad = response.response;
         this.displayLoader = false;
-        this.listenByTime(response.payload.rules_hours);
+        this.listenByTime(response.response.rules_hours);
       }
     },
     err => {
@@ -208,7 +207,7 @@ export class HomeComponent implements OnInit{
     this.songService.songByRule(id).subscribe(response => {
       this.displayLoader = false;
       this.rule = ruleId;
-      this.nextSong = response.payload.song;
+      this.dataLoad = response.payload;
       this.onPlay();
     });
   }
