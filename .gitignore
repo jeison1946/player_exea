@@ -43,4 +43,5 @@ Thumbs.db
 
 #Production
 /src/app/shared/lib-tool/src/lib/environments/environment.prod.ts
+/src/app/shared/lib-tool/src/lib/environments/environment.ts
 

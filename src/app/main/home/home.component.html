@@ -16,14 +16,14 @@
     <div *ngIf="this.dataLoad.error" class="widget-music error" [class]="displayLoader ? 'hidden' : ''">
       <p>Hubo un error al cargar el audio, por favor validar el automatizador (se pasará la siguiente cación)</p>
     </div>
+    <audio controls id="player" (timeupdate)="updateTime($event)" hidden (ended)="finishSong()">
+    </audio>
     <div
     *ngIf="!displayLoader"
     class="widget-music"
     [class]="displayLoader ? 'hidden' : ''"
     [style.background-image]="mobile ? 'url(' + currentCustomer.fondo_mobile.url + ')' : 'url(' + currentCustomer.imagen_de_fondo.url + ')'"
     >
-      <audio controls id="player" (timeupdate)="updateTime($event)" hidden (ended)="finishSong()">
-      </audio>
         <div class="container-musis" [style.border]="'10px solid '+ currentCustomer.color_primario">
           <div class="container-rows">
             <div class="item-row d7">

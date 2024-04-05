@@ -141,10 +141,10 @@ export class HomeComponent implements OnInit{
     this.songService.getNextSong(this.currentUser.punto_de_venta).subscribe(response => {
       if (response.code == 200) {
         this.displayLoader = false;
-        this.rule = response.payload.ruleId;
-        this.dataLoad = response.payload;
+        this.rule = response.response.ruleId;
+        this.dataLoad = response.response;
         this.onPlay();
-        this.listenByTime(response.payload.rules_hours);
+        this.listenByTime(response.response.rules_hours);
       }
     },
     err => {
@@ -207,7 +207,7 @@ export class HomeComponent implements OnInit{
     this.songService.songByRule(id).subscribe(response => {
       this.displayLoader = false;
       this.rule = ruleId;
-      this.dataLoad = response.payload;
+      this.dataLoad = response.response;
       this.onPlay();
     });
   }
