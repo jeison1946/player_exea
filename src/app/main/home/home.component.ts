@@ -196,23 +196,28 @@ export class HomeComponent implements OnInit{
       Object.entries(ruleHours).forEach((element:any) => {
         const hours = element[1].hours;
         hours.forEach((item:any, index:any) => {
-          this.addTimer(item, element[0], element[1].id, index);
+          this.addTimer(item, element[0], element[1], index);
         })
       });
     }
   }
 
-  songByTime(ruleId:number, id:number) {
+  songByTime(ruleId:number, content:any) {
     this.displayLoader = true;
-    this.songService.songByRule(id).subscribe(response => {
+    this.songService.songByRule(content.id).subscribe(response => {
       this.displayLoader = false;
       this.rule = ruleId;
-      this.dataLoad = response.response;
+      this.dataLoad = {
+        ruleId: ruleId,
+        id: ruleId,
+        name: content.nombre,
+        song: response.response.song,
+      };
       this.onPlay();
     });
   }
 
-  addTimer(time: any, ruleId:number, id:number, index:any) {
+  addTimer(time: any, ruleId:number, content:any, index:any) {
     const existe:any = localStorage.getItem(`${ruleId}-${index}`);
     const now:Date = new Date();
     const timeNew = new Date(time).valueOf() - now.valueOf();
@@ -223,7 +228,7 @@ export class HomeComponent implements OnInit{
     }
     if(timeNew > 10) {
       const timer:any = setTimeout( () => {
-        this.songByTime(ruleId, id);
+        this.songByTime(ruleId, content);
       }, timeNew);
       const data = {
         ruleId: ruleId,
