@@ -3,10 +3,12 @@
     <div class="main-loader pagecomplete"*ngIf="displayLoader">
       <div class="spinner-border text-info " role="status"></div>
     </div>
-    <div class="content-form" [style.background-image]="mobile ? 'url(' + infoPage.fondo + ')' : 'url(' + infoPage.fondo + ')'">
+    <!-- <div class="content-form" [style.background-image]="mobile ? 'url(' + infoPage.fondo + ')' : 'url(' + infoPage.fondo + ')'"> -->
+      <div class="content-form">
+      <div class="form-background"><img src="../../../assets/login_mobile/logo_mobile.png"> </div>
       <div class="form-signin">
         <div class="image-icon-background"><img src="../../../assets/login.png"> </div>
-        
+
         <ngb-alert *ngIf="alerts" [type]="alerts.type" (closed)="close()" class="alert-login">{{ alerts.message }}</ngb-alert>
         <form  novalidate [formGroup]="form" (ngSubmit)="setDataLogin()">
           <div class="form-field user">
@@ -23,7 +25,7 @@
           </div>
         </form>
       </div>
-      
+
     </div>
   </div>
 </div>

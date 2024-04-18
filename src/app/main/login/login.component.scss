@@ -1,5 +1,22 @@
 .page-login{
   height: 100svh;
+  background-color: #000000;
+
+  .main-content{
+    background-image: url('../../../assets/login/fondo.webp');
+  }
+  @media only screen and (max-width: 600px) {
+
+    .main-content{
+      background-image: url('../../../assets/login_mobile/webp/fondo-mobile.webp');
+      background-repeat: no-repeat;
+      background-position: top left;
+      background-size: 38rem;
+      display: flex;
+      align-items: center;
+    }
+  }
+
 
 
   .content-form{
@@ -12,12 +29,31 @@
     justify-content: end;
     align-items: center;
 
-    @media only screen and (max-width: 600px) {
-      align-items: flex-end;
-      background-size: 38rem;
-      background-position: top left;
-      background-color: #000000;
+    .form-background{
+      display: none;
+      overflow: hidden;
+      img{
+        object-fit: cover;
+        object-position: center bottom;
+        width: 100%;
+        display: block;
+      }
     }
+
+    @media only screen and (max-width: 600px) {
+      height: 95%;
+      width: 90%;
+      margin: auto;
+      background-image: url('../../../assets/login_mobile/webp/fondo_sgundario.webp');
+      flex-direction: column;
+      justify-content: space-around;
+      .form-background{
+        display: block;
+      }
+
+    }
+
+
   }
 
   .form-signin{
