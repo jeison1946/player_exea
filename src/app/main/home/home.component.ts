@@ -210,7 +210,7 @@ export class HomeComponent implements OnInit{
       this.dataLoad = {
         ruleId: ruleId,
         id: ruleId,
-        name: content.nombre,
+        name: content.name,
         song: response.response.song,
       };
       this.onPlay();
@@ -220,16 +220,16 @@ export class HomeComponent implements OnInit{
   addTimer(time: any, ruleId:number, content:any, index:any) {
     const existe:any = localStorage.getItem(`${ruleId}-${index}`);
     const now:Date = new Date();
-    const timeNew = new Date(time).valueOf() - now.valueOf();
+    const validations = time.valueOf() - now.valueOf();
     if(existe) {
       const current = JSON.parse(existe);
       clearTimeout(current.timer);
       localStorage.removeItem(`${ruleId}-${index}`);
     }
-    if(timeNew > 10) {
+    if(validations > 10) {
       const timer:any = setTimeout( () => {
         this.songByTime(ruleId, content);
-      }, timeNew);
+      }, validations);
       const data = {
         ruleId: ruleId,
         id: time,
