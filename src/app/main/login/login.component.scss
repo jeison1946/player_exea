@@ -37,6 +37,7 @@
         object-position: center bottom;
         width: 100%;
         display: block;
+        height: 100%;
       }
     }
 
@@ -62,11 +63,6 @@
     justify-content: end;
     margin: 3rem;
 
-    @media only screen and (max-width: 600px) {
-      margin: 1rem 0;
-      padding: 1rem 0;
-    }
-
     form{
       width: 70%;
       margin: auto;
@@ -74,6 +70,15 @@
 
     }
 
+
+    @media only screen and (max-width: 600px) {
+      margin: 1rem 0;
+      padding: 0px 0;
+
+      form{
+        width: 85%;
+      }
+    }
 
     .image-icon-background{
       img{
