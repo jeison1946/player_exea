@@ -47,6 +47,8 @@ export class HomeComponent implements OnInit{
 
   titlePage: HTMLLinkElement | null = document.querySelector('#titlePage');
 
+  lastLog: string = '';
+
   constructor(
     public songService: SongsService,
     private router: Router,
@@ -91,16 +93,20 @@ export class HomeComponent implements OnInit{
     player.setAttribute('src', this.dataLoad.song.url);
     player.play();
     this.isListen = true;
-    this.songService.logSong(
-      this.dataLoad,
-      this.currentUser.punto_de_venta
-      ).subscribe(response => {
-    });
-    this.socket.emit('statusPointofsale', {
-      pos: this.currentUser.punto_de_venta,
-      idClient: this.socket.ioSocket.id,
-      status: true,
-    });
+    const logString = `${this.currentUser.punto_de_venta}-${this.dataLoad.ruleId}-${this.dataLoad.song.id}`;
+    if (logString != this.lastLog) {
+      this.songService.logSong(
+        this.dataLoad,
+        this.currentUser.punto_de_venta
+        ).subscribe(response => {
+          this.lastLog = logString;
+      });
+      this.socket.emit('statusPointofsale', {
+        pos: this.currentUser.punto_de_venta,
+        idClient: this.socket.ioSocket.id,
+        status: true,
+      });
+    }
   }
 
   onPuase() {
