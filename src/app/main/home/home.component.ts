@@ -107,6 +107,11 @@ export class HomeComponent implements OnInit{
         status: true,
       });
     }
+    this.socket.emit('currentSongListen', {
+      pos: this.currentUser.punto_de_venta,
+      title: this.dataLoad.song.title,
+      author: this.dataLoad.song.artist
+    });
   }
 
   onPuase() {
